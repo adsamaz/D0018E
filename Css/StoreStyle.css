@@ -1,4 +1,26 @@
 
 .LinkItem{
-    border: solid 5px black;
+    color: black;
+    text-decoration:none;
+    display:block;
+   
+}
+
+.storeList{
+    padding-top:10%;
+    list-style-type: none;
+    
+}
+.storeList li{
+    text-decoration:none;
+    border: solid 1px #808080;
+    border-radius: 10px;
+    width: 17%;
+}
+.storeList li:hover{
+    opacity:0.4;
+    -webkit-transition: opacity 0.5s;
+}
+.storeList li *{
+    text-align:center;
 }

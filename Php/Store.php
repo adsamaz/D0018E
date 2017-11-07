@@ -1,28 +1,29 @@
 <html>
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
-    <!--<link rel="stylesheet" type="text/css" href="../Css/StoreStyle.css">-->
+    <link rel="stylesheet" type="text/css" href="../Css/StoreStyle.css">
 </head>
 
+<php
 <body>
     <ul class="menu">
-  <li><a href="Index.html">Home</a></li>
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Store</a>
-    <div class="dropdown-content">
-      <a href="Store.php">Product Typ 1</a>
-      <a href="#">Product Typ 2</a>
-      <a href="#">Product Typ 3</a>
+      <li class="menuItem"><a href="Index.html">Home</a></li>
+      <li class="dropdown menuItem">
+        <a href="javascript:void(0)" class="dropbtn">Store</a>
+        <div class="dropdown-content">
+          <a href="Store.php">Product Typ 1</a>
+          <a href="#">Product Typ 2</a>
+          <a href="#">Product Typ 3</a>
 
-    </div>
-  </li>
-  <li><a href="#account">Account</a></li>
-  <li style="float:right"><a href="Login.html">Login</a></li>
-  <li style="float:right"><a href="Register.html">Register</a></li>
-  <li style="float:right"><a href="Kundvagn.html">Kundvagn</a></li>
+        </div>
+      </li>
+      <li><a href="#account">Account</a></li>
+      <li style="float:right"><a href="Login.html">Login</a></li>
+      <li style="float:right"><a href="Register.html">Register</a></li>
+      <li style="float:right"><a href="Kundvagn.html">Kundvagn</a></li>
 
 
-</ul>
-<br />
+    </ul>
+    <br />
 <?php
 
 
@@ -37,12 +38,12 @@
     $stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori = 'vape'");
 	$stmt->execute();
 	
-	echo "<ul>";
+	echo "<ul class='storeList'>";
 	$i = 1;
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 		if($i > 5){
 			$i = 1;
-			echo "</ul> <ul>";
+			echo "</ul> <ul class='storeList'>";
 		}
             $id = $row['ProduktID'];
             //echo "<a href='ViewProduct.php?ID=$id' class='LinkItem'>";
