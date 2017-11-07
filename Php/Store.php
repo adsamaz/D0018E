@@ -1,59 +1,6 @@
-﻿<html>
-    <style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    
-}
-ul.menu{
-	background-color: #393939;
-}
-
-li {
-    float: left;
-}
-
-li a, .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: #16a426;
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {background-color: #16a426}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-</style>
+<html>
+    <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
+    <!--<link rel="stylesheet" type="text/css" href="../Css/StoreStyle.css">-->
 </head>
 
 <body>
@@ -77,6 +24,8 @@ li.dropdown {
 </ul>
 <br />
 <?php
+
+
     try{
 		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
 	}
@@ -95,10 +44,15 @@ li.dropdown {
 			$i = 1;
 			echo "</ul> <ul>";
 		}
-			echo "<li><h3>" . $row['Namn'] . "</h3>";
+            $id = $row['ProduktID'];
+            //echo "<a href='ViewProduct.php?ID=$id' class='LinkItem'>";
+
+			echo "<li><a href='ViewProduct.php?ID=$id' class='LinkItem'><h3>" . $row['Namn'] . "</h3>";
 			echo "<br /> <b>Description</b> <br />" . $row['Beskrivning'];
 			echo "<br /><br /> <b>Price:</b> $" . $row['Pris'];
-			echo "   <b>In Stock:</b> " . $row['LagerAntal'] . "</li>";
+			echo " <b>In Stock:</b> " . $row['LagerAntal'] . "</a></li>";
+
+            //echo "</a>";
 			
 		
 		
