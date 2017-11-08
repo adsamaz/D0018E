@@ -16,6 +16,8 @@
     border: solid 1px #808080;
     border-radius: 10px;
     width: 17%;
+	float:left;
+	margin-left:5%; 
 }
 .storeList li:hover{
     opacity:0.4;
