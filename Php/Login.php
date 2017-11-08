@@ -72,23 +72,59 @@ li.dropdown {
 
 
 </ul>
-    <form>
-        <table width="30%" bgcolor="ffffff" align="center">
 
-            <tr>
-                <td colspan=4><center><font size=4><b>Login</b></font></center></td>
-            </tr>
+<?php 
 
-            <tr>
-                <td>Username</td>
-                <td><input type="text" size=25 name="username" style="width: 140px"></td>
-                <td> Password:</td>
-                <td><input type="Password" size=25 name="password"style="width: 140px"></td>
-            </tr>
+	session_start();
+	$_SESSION['message']='';
+	try{
+		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
+	}
+	catch(Exception $e){
+		die;
+		echo $e->getMessage();
+	}
+	if($_SERVER['REQUEST_METHOD']=='POST'){
+		$stmt=$db->prepare("Select * FROM Users WHERE Username ='" . $_POST["username"] . "'");
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if(!$row){
+			$_SESSION['message']="This user dosent exist in the database";
+			//header("Location: Login.php");
+			echo "<script> alert('Wrong username or password, try again!')</script>";
+		}
+		else{
+			
+		if($_POST["username"] == $row['Username']){
+			if($_POST["password"] == $row['Password']){
+				echo "<script> alert('USER FOUND IN DATABASE!')</script>";
 
-           <tr>
-                <td><input type="submit" onclick="check(this.form)" value="Login"></td>
-            </tr>
+	
+		}
+	
+		}
+		}
+		// $stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES ('" . $_POST["username"] . "', '" . $_POST["password"] . "', '" . $_POST["Namn"] . "', '" . ($_POST["Address"]) . "', '" . 'pleb' . "')");
+		// $stmt->execute();
+		// echo "<script> alert('You are now registered, thank you!'); window.location='/~adasaw-5/root/Index.html'; </script>";	
+	}
+
+	?>
+
+    <form name="Login" method="post" action="">
+		<div class="alert"> <?=$_SESSION['message']?></div>
+		    <div class="container">
+            <label>Username</label>
+            <input type="text" placeholder="Username" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>" required>
+			<label>Password</label>
+            <input type="password" placeholder="Password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>" required>
+           
+			
+            <div class="clear">
+                <button type="Login" class="loginbtn">Login</button>
+            </div>
+        </div>
+
 
         </table>
     </form>
