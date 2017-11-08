@@ -97,9 +97,13 @@ li.dropdown {
 			
 		if($_POST["username"] == $row['Username']){
 			if($_POST["password"] == $row['Password']){
-				echo "<script> alert('USER FOUND IN DATABASE!')</script>";
+				//echo "<script> alert('USER FOUND IN DATABASE!')</script>";
+				$_SESSION['username']= $row['Username'];
+				echo "<script> alert('Welcome to the store! You are now signed in.'); window.location='/~adasaw-5/root/Php/Store.php'; </script>";
 
-	
+				// header("Location: /~adasaw-5/root/Php/Login.php");	
+				// echo 'welcome to the store ' .  $row['Username'];
+
 		}
 	
 		}
@@ -107,6 +111,7 @@ li.dropdown {
 		// $stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES ('" . $_POST["username"] . "', '" . $_POST["password"] . "', '" . $_POST["Namn"] . "', '" . ($_POST["Address"]) . "', '" . 'pleb' . "')");
 		// $stmt->execute();
 		// echo "<script> alert('You are now registered, thank you!'); window.location='/~adasaw-5/root/Index.html'; </script>";	
+	
 	}
 
 	?>
@@ -122,6 +127,7 @@ li.dropdown {
 			
             <div class="clear">
                 <button type="Login" class="loginbtn">Login</button>
+			
             </div>
         </div>
 
