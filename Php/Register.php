@@ -58,20 +58,20 @@ li.dropdown {
 <body>
 
 <ul>
-  <li><a href="Htmlpage1.html">Home</a></li>
+  <li><a href="/~adasaw-5/root/Index.html">Home</a></li>
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">Store</a>
     <div class="dropdown-content">
-      <a href="Store.html">Product Typ 1</a>
+      <a href="Store.php">Product Typ 1</a>
       <a href="#">Product Typ 2</a>
       <a href="#">Product Typ 3</a>
 
     </div>
   </li>
-  <li><a href="#account">Account</a></li>
-  <li style="float:right"><a href="Login.html">Login</a></li>
-  <li style="float:right"><a href="Register.html">Register</a></li>
-  <li style="float:right"><a href="Kundvagn.html">Kundvagn</a></li>
+  <li><a href="Account.php">Account</a></li>
+  <li style="float:right"><a href="Login.php">Login</a></li>
+  <li style="float:right"><a href="Register.php">Register</a></li>
+  <li style="float:right"><a href="Kundvagn.php">Kundvagn</a></li>
 
 
 </ul>
@@ -91,8 +91,18 @@ li.dropdown {
 		$stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES ('" . $_POST["username"] . "', '" . $_POST["password"] . "', '" . $_POST["Namn"] . "', '" . ($_POST["Address"]) . "', '" . 'pleb' . "')");
 		$stmt->execute();
 		
-		echo "<script> alert('You are now registered, thank you!'); window.location='/~adasaw-5/root/Index.html'; </script>";
+		//echo "<script> alert('You are now registered, thank you!'); window.location='/~adasaw-5/root/Index.html'; </script>";
+		$stmt1=$db->prepare("Select * FROM Users WHERE Username ='" . $_POST["username"] . "'");
+		$stmt1->execute();
+		$row = $stmt1->fetch(PDO::FETCH_ASSOC);
 		
+		$_SESSION['username']= $row['Username'];
+		$_SESSION['u_name']= $row['Namn'];
+		$_SESSION['u_add']= $row['Adress'];
+				
+				//echo "<script> alert('Welcome to the store! You are now signed in.'); window.location='/~adasaw-5/root/Php/Account.php?login=success'; </script>";
+		header("Location: Account.php?login=success");
+		exit();
 
 		
 		

@@ -55,20 +55,20 @@ li.dropdown {
 
 <body>
     <ul>
-  <li><a href="HtmlPage1.html">Home</a></li>
+  <li><a href="/~adasaw-5/root/Index.html">Home</a></li>
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">Store</a>
     <div class="dropdown-content">
-      <a href="#">Product Typ 1</a>
+      <a href="Store.php">Product Typ 1</a>
       <a href="#">Product Typ 2</a>
       <a href="#">Product Typ 3</a>
 
     </div>
   </li>
-  <li><a href="#account">Account</a></li>
-  <li style="float:right"><a href="Login.html">Login</a></li>
-  <li style="float:right"><a href="Register.html">Register</a></li>
-  <li style="float:right"><a href="Kundvagn.html">Kundvagn</a></li>
+  <li><a href="Account.php">Account</a></li>
+  <li style="float:right"><a href="Login.php">Login</a></li>
+  <li style="float:right"><a href="Register.php">Register</a></li>
+  <li style="float:right"><a href="Kundvagn.php">Kundvagn</a></li>
 
 
 </ul>
@@ -97,21 +97,21 @@ li.dropdown {
 			
 		if($_POST["username"] == $row['Username']){
 			if($_POST["password"] == $row['Password']){
+				//Starting a new session for the user->login the user
 				//echo "<script> alert('USER FOUND IN DATABASE!')</script>";
 				$_SESSION['username']= $row['Username'];
-				echo "<script> alert('Welcome to the store! You are now signed in.'); window.location='/~adasaw-5/root/Php/Store.php'; </script>";
-
-				// header("Location: /~adasaw-5/root/Php/Login.php");	
-				// echo 'welcome to the store ' .  $row['Username'];
+				$_SESSION['u_name']= $row['Namn'];
+				$_SESSION['u_add']= $row['Adress'];
+				
+				//echo "<script> alert('Welcome to the store! You are now signed in.'); window.location='/~adasaw-5/root/Php/Account.php?login=success'; </script>";
+				header("Location: Account.php?login=success");
+				exit();
 
 		}
 	
 		}
 		}
-		// $stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES ('" . $_POST["username"] . "', '" . $_POST["password"] . "', '" . $_POST["Namn"] . "', '" . ($_POST["Address"]) . "', '" . 'pleb' . "')");
-		// $stmt->execute();
-		// echo "<script> alert('You are now registered, thank you!'); window.location='/~adasaw-5/root/Index.html'; </script>";	
-	
+		
 	}
 
 	?>
