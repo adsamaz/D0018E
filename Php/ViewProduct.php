@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
@@ -8,7 +9,7 @@
 
 <?php
 	include "../Html/menu.html";
-
+	
     try{
 		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
 	}
@@ -36,15 +37,34 @@
 	echo "<br /> <b>Description</b> <br />" . $row['Beskrivning'];
 	echo "<br /><br /> <b>Price:</b> $" . $row['Pris'];
 	echo " <b>In Stock:</b> " . $row['LagerAntal'];
-
+	
+	
+	if($_SERVER['REQUEST_METHOD']=='POST'){
+		$random = rand();
+		$stmt = $db->prepare("INSERT INTO Ordrar (ID,Datum,Status,Username,Ok) VALUES ('" . ($random) . "', '" . date("Y-m-d") . "', '" . "ok" . "', '" . ($_SESSION['username']) . "','" . 0 . "') ON DUPLICATE KEY UPDATE ID=". rand());
+		$stmt->execute();
+		$stmt1 = $db->prepare("INSERT INTO Produkter_Ordrar(Produkter_ID, Ordrar_ID, Antal) VALUES ('".$id."','". $random ."', '". $_POST['antal']. "' )");
+		$stmt1->execute();
+		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
+		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		$_SESSION['ProductID'] = $id;
+		
+		//$_SESSION['Product'] = $row['Username'];
+		// $_SESSION['u_name']= $row['Namn'];
+		// $_SESSION['u_add']= $row['Adress'];
+		
+		
+		echo "<br> Added to your cart <br>";
+	}
 
 
 	
     ?>
 	<script type="text/javascript" src="../Javascript/disableButtonOutOfStock">
 	</script>
-	<form action="#" method="post">
-		<input type="text" name="antal" value="0">
+	<form action="" method="post">
+		<input type="text" name="antal" value="<?php if(isset($_POST['antal'])) echo $_POST['antal'];?>">
 		<input type="submit" id="btnSubmit" name="btnSubmit" value="Add to cart">
 	</form>
 
