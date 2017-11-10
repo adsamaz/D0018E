@@ -48,12 +48,7 @@
 		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
 		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		$_SESSION['ProductID'] = $id;
-		
-		//$_SESSION['Product'] = $row['Username'];
-		// $_SESSION['u_name']= $row['Namn'];
-		// $_SESSION['u_add']= $row['Adress'];
-		
+		$_SESSION['ProductID'] = $id;	
 		
 		echo "<br> Added to your cart <br>";
 	}

@@ -72,10 +72,10 @@
 
             </div>
         </li>
-        <li><a href="#account">Account</a></li>
-        <li style="float:right"><a href="Login.html">Login</a></li>
-        <li style="float:right"><a href="Register.html">Register</a></li>
-        <li style="float:right"><a href="Kundvagn.html">Kundvagn</a></li>
+        <li><a href="Account.php">Account</a></li>
+        <li style="float:right"><a href="Login.php">Login</a></li>
+        <li style="float:right"><a href="Register.php">Register</a></li>
+        <li style="float:right"><a href="Kundvagn.php">Kundvagn</a></li>
 
 
     </ul>
@@ -94,7 +94,7 @@
 		
 	
 		if(isset($_SESSION['username'])){
-					$sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."'" );
+					$sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."' AND Ok=0" );
 					$sql->execute();
 					$TotalPris=0;
 					echo "Welcome " . $_SESSION['u_name']. " to the shopping cart <br><br> Your orders: <br>" ;
@@ -129,13 +129,14 @@
 							
 							$sql = $db->prepare("UPDATE Ordrar SET Ok = '1' WHERE Ordrar.Username = '". $_SESSION['username']."'" );
 							$sql->execute();
-							echo "Thank you for the order.";
+							echo "<script> alert('Thank you for the order!'); window.location='/~adasaw-5/root/Php/Kundvagn.php'; </script>";
+							//echo "Thank you for the order.";
 						}
 						if(isset($_POST['Clear_button']))
 						{
 							
-							$sql = $db->prepare("DELETE FROM Ordrar WHERE Ordrar.Username = \'". $_SESSION['username']."\'" );
-							$sql->execute();
+							$sqlDelete = $db->prepare("DELETE FROM Ordrar WHERE Username = '". $_SESSION['username']."'" );
+							$sqlDelete->execute();
 							echo "Order is now cleared!";
 						}
 
