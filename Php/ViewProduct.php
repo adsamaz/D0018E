@@ -2,9 +2,11 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
+	
+	
 </head>
 
-<php
+
 <body>
 
 <?php
@@ -56,10 +58,24 @@
 
 	
     ?>
-	<script type="text/javascript" src="../Javascript/disableButtonOutOfStock">
+	<script type="text/javascript">
+	
+		var lagerAntal = "<?php echo $lagerAntal ?>";
+		
+		var oText = document.getElementById("antal");
+		console.log(doucment);
+		console.log(document.getElementById("antal"));
+		if (oText.value > lagerAntal) {
+			document.getElementById("btnSubmit").disabled = true;
+		}
+		else {
+			document.getElementById("btnSubmit").disabled = false;
+		}
+    
 	</script>
+	
 	<form action="" method="post">
-		<input type="text" name="antal" value="<?php if(isset($_POST['antal'])) echo $_POST['antal'];?>">
+		<input type="text" id="antal" name="antal" value="<?php if(isset($_POST['antal'])) echo $_POST['antal'];?>">
 		<input type="submit" id="btnSubmit" name="btnSubmit" value="Add to cart">
 	</form>
 
