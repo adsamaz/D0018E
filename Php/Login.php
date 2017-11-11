@@ -54,27 +54,9 @@ li.dropdown {
 </head>
 
 <body>
-    <ul>
-  <li><a href="/~adasaw-5/root/Index.html">Home</a></li>
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Store</a>
-    <div class="dropdown-content">
-      <a href="Store.php">Product Typ 1</a>
-      <a href="#">Product Typ 2</a>
-      <a href="#">Product Typ 3</a>
-
-    </div>
-  </li>
-  <li><a href="Account.php">Account</a></li>
-  <li style="float:right"><a href="Login.php">Login</a></li>
-  <li style="float:right"><a href="Register.php">Register</a></li>
-  <li style="float:right"><a href="Kundvagn.php">Kundvagn</a></li>
-
-
-</ul>
-
+  
 <?php 
-
+	include "../Html/menu.html";
 	session_start();
 	$_SESSION['message']='';
 	try{
@@ -102,6 +84,8 @@ li.dropdown {
 				$_SESSION['username']= $row['Username'];
 				$_SESSION['u_name']= $row['Namn'];
 				$_SESSION['u_add']= $row['Adress'];
+				$_SESSION['u_role']= $row['Roll'];
+
 				
 				//echo "<script> alert('Welcome to the store! You are now signed in.'); window.location='/~adasaw-5/root/Php/Account.php?login=success'; </script>";
 				header("Location: Account.php?login=success");

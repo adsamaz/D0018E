@@ -61,26 +61,6 @@
 </head>
 <body>
 
-    <ul>
-        <li><a href="Htmlpage1.html">Home</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Store</a>
-            <div class="dropdown-content">
-                <a href="Store.html">Product Typ 1</a>
-                <a href="#">Product Typ 2</a>
-                <a href="#">Product Typ 3</a>
-
-            </div>
-        </li>
-        <li><a href="Account.php">Account</a></li>
-        <li style="float:right"><a href="Login.php">Login</a></li>
-        <li style="float:right"><a href="Register.php">Register</a></li>
-        <li style="float:right"><a href="Kundvagn.php">Kundvagn</a></li>
-
-
-    </ul>
-
-    <h3>Your cart</h3>
     <?php 
 		try{
 		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
@@ -94,6 +74,8 @@
 		
 	
 		if(isset($_SESSION['username'])){
+					include "../Html/LogIN.html";
+					echo "<h3>Your cart</h3>";
 					$sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."' AND Ok=0" );
 					$sql->execute();
 					$TotalPris=0;
@@ -110,6 +92,7 @@
 						$sqlP->execute();
 						$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
 						$TotalPris += $rowP['Pris']*$rowO['Antal'];
+						
 						echo "Product: " .$rowP['Namn']." - Amount: " . $rowO['Antal'] . "- Price: " .$rowP['Pris']*$rowO['Antal']."<br>" ;
 						
 
@@ -130,14 +113,20 @@
 							$sql = $db->prepare("UPDATE Ordrar SET Ok = '1' WHERE Ordrar.Username = '". $_SESSION['username']."'" );
 							$sql->execute();
 							echo "<script> alert('Thank you for the order!'); window.location='/~adasaw-5/root/Php/Kundvagn.php'; </script>";
-							//echo "Thank you for the order.";
 						}
 						if(isset($_POST['Clear_button']))
 						{
+							$sqlD=$db->prepare("SELECT ID FROM Ordrar WHERE Ok = '0' AND Username ='". $_SESSION['username'] ."'" );
+							$sqlD->execute();
+							while($rowD = $sqlD->fetch(PDO::FETCH_ASSOC)){
+								$sqlDelete1 = $db->prepare("DELETE FROM Produkter_Ordrar WHERE Ordrar_ID = '". $rowD['ID']."'" );
+								$sqlDelete1->execute();
+								$sqlDelete = $db->prepare("DELETE FROM Ordrar WHERE ID = '". $rowD['ID'] ."'" );
+								$sqlDelete->execute();
+							}
 							
-							$sqlDelete = $db->prepare("DELETE FROM Ordrar WHERE Username = '". $_SESSION['username']."'" );
-							$sqlDelete->execute();
-							echo "Order is now cleared!";
+							
+							echo "<script> alert('All your orders is now cleared!'); window.location='/~adasaw-5/root/Php/Kundvagn.php'; </script>";
 						}
 
 					
@@ -145,7 +134,8 @@
 					}
 					
 		else{
-						echo "You need to be signed in to access your shopping cart";
+				include "../Html/menu.html";
+				echo "You need to be signed in to access your shopping cart";
 		}
 	
 	
