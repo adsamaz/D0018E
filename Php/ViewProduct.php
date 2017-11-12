@@ -12,9 +12,14 @@
 <body>
 
 <?php
-	include "../Html/menu.html";
+  if(isset($_SESSION['username'])){
+    include "../Html/LogIN.html";
+  }
+  else{
+    include "../Html/menu.html";
+  }
 
-    try{
+  try{
 		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
 	}
 	catch(Exception $e){
@@ -65,7 +70,7 @@
 
 
 <?php
-//checks if username is set and creats the javascript variable lagerAntal
+//checks if username is set and creates the javascript variable lagerAntal
   echo '<script type="text/javascript">';
   echo 'var lagerAntal = ' . json_encode($lagerAntal) . ';';
   if(!isset($_SESSION['username'])){
