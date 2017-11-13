@@ -34,11 +34,13 @@
 			$i = 1;
 			echo "</ul> <ul class='storeList'>";
 		}
-            $id = $row['ID'];
-            //echo "<a href='ViewProduct.php?ID=$id' class='LinkItem'>";
+    $id = $row['ID'];
+    //echo "<a href='ViewProduct.php?ID=$id' class='LinkItem'>";
+    $ImageID = $row['Bild'];
 
 			echo "<li><a href='ViewProduct.php?ID=$id' class='LinkItem'><h3>" . $row['Namn'] . "</h3>";
-			echo "<br /> <b>Description</b> <br />" . $row['Beskrivning'];
+      echo "<img src='../Images/ProductImage$ImageID.jpg' />";
+      echo "<br /> <b>Description</b> <br />" . $row['Beskrivning'];
 			echo "<br /><br /> <b>Price:</b> $" . $row['Pris'];
 			echo " <b>In Stock:</b> " . $row['LagerAntal'] . "</a></li>";
 
