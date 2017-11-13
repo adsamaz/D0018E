@@ -1,3 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body, html {
+    height: 100%;
+}
+
+/*
+#wrap{
+  background-image: url("../Images/Background.jpg");
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}*/
 ul.menu {
     list-style-type: none;
     margin: 0;
@@ -47,4 +64,20 @@ ul.menu .dropdown-content a:hover {background-color: #16a426}
 
 ul.menu .dropdown:hover .dropdown-content {
     display: block;
+}
+
+
+
+.parallax {
+    /* The image used */
+    background-image: url("../Images/Background.jpg");
+
+    /* Full height */
+    height: 80%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

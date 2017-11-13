@@ -4,6 +4,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
+    <link rel="stylesheet" type="text/css" href="../Css/ViewProductStyle.css">
     <script type="text/javascript" src="../Javascript/disableButtonOutOfStock.js"></script>
 
 </head>
@@ -19,6 +20,11 @@
     include "../Html/menu.html";
   }
 
+?>
+    <div class="parallax"></div>
+    <div id="wrap">
+<?php
+
   try{
 		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
 	}
@@ -29,17 +35,18 @@
 
 	$id = $_GET['ID'];
 
-    $stmt = $db->prepare("SELECT * FROM Produkter WHERE ID=$id");
+  $stmt = $db->prepare("SELECT * FROM Produkter WHERE ID=$id");
 	$stmt->execute();
 
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 	$lagerAntal = $row['LagerAntal'];
-
+  $ImageID = $row['Bild'];
 
 	echo "<h3>" . $row['Namn'] . "</h3>";
-	echo "<br /> <b>Description</b> <br />" . $row['Beskrivning'];
-	echo "<br /><br /> <b>Price:</b> $" . $row['Pris'];
+  echo "<img src='../Images/ProductImage$ImageID.jpg' />";
+	echo "<br /> <b>Description</b> <div class='description'>" . $row['Beskrivning'] . "</div>";
+	echo "<br /> <b>Price:</b> $" . $row['Pris'];
 	echo " <b>In Stock:</b> " . $row['LagerAntal'];
 
 
@@ -80,6 +87,6 @@
   }
   echo '</script>';
 ?>
-
+  </div>
 </body>
 </html>

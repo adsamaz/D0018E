@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="../Css/StoreStyle.css">
 </head>
 
-<php
+
 <body>
 
 <?php
@@ -15,6 +15,10 @@
   else{
     include "../Html/menu.html";
   }
+?>
+  <div class="parallax"></div>
+  <div id="wrap">
+<?php
 
     try{
 		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
@@ -24,7 +28,7 @@
 		echo $e->getMessage();
 	}
 
-    $stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori = 'vape'");
+  $stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori = 'vape'");
 	$stmt->execute();
 
 	echo "<ul class='storeList'>";
@@ -40,7 +44,7 @@
 
 			echo "<li><a href='ViewProduct.php?ID=$id' class='LinkItem'><h3>" . $row['Namn'] . "</h3>";
       echo "<img src='../Images/ProductImage$ImageID.jpg' />";
-      echo "<br /> <b>Description</b> <br />" . $row['Beskrivning'];
+      //echo "<br /> <b>Description</b> <br />" . $row['Beskrivning'];
 			echo "<br /><br /> <b>Price:</b> $" . $row['Pris'];
 			echo " <b>In Stock:</b> " . $row['LagerAntal'] . "</a></li>";
 
@@ -52,8 +56,8 @@
 	}
 	echo "</ul>";
 
-    ?>
-
+?>
+</div>
 
 
 </body>
