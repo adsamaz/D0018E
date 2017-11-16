@@ -18,6 +18,10 @@
 ?>
   <div class="parallax"></div>
   <div id="wrap">
+	<form action ="Store.php" method="post">
+			<input type="text" class="searchField" name="search" placeholder="Search" />
+			<input type="submit" class="searchButton" name="btnSearch" value="Search" />
+	</form>
 <?php
 
     try{
@@ -27,8 +31,13 @@
 
 		echo $e->getMessage();
 	}
-
-  $stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori = 'vape'");
+	if(isset($_POST['search'])){
+		$searchValue = $_POST['search'];
+		$stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori LIKE '%$searchValue%' OR Namn LIKE '%$searchValue%'");
+	}
+	else{
+	$stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori = 'vape'");
+	}
 	$stmt->execute();
 
 	echo "<ul class='storeList'>";
