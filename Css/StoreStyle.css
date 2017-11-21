@@ -1,3 +1,10 @@
+#wrap{
+  height:100%;
+}
+
+.content{
+  margin:5px 10px;
+}
 
 .LinkItem{
     color: black;
@@ -7,7 +14,7 @@
 }
 
 .storeList{
-    padding-top:5%;
+    /*padding-top:5%;*/
     list-style-type: none;
 
 }
@@ -17,7 +24,7 @@
   border-radius: 10px;
   width: 17%;
 	float:left;
-	margin-left:5%;
+	margin:2% 4%;
 }
 .storeList li:hover{
     opacity:0.4;
