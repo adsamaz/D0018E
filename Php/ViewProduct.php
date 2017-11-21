@@ -6,7 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
     <link rel="stylesheet" type="text/css" href="../Css/ViewProductStyle.css">
     <script type="text/javascript" src="../Javascript/disableButtonOutOfStock.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="../Javascript/Smoke.js"></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
     }
 
   ?>
-  <div class="parallax"></div>
+  <canvas class="parallax"></canvas>
   <div id="wrap">
     <?php
 
@@ -45,8 +46,8 @@
     	echo "<h1>" . $row['Namn'] . "</h1>";
       echo "<img class='productImage' src='../Images/ProductImage$ImageID.jpg' />";
     	echo "<div class='description'><h3>Description</h3>" . $row['Beskrivning'] . "</div>";
-    	echo "<br /> <b>Price:</b> $" . $row['Pris'];
-    	echo " <b>In Stock:</b> " . $row['LagerAntal'];
+    	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
+    	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
 
 
     	if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -73,6 +74,7 @@
       	<input type="text" onkeyup="checkAmount()" id="antal" name="antal" value="<?php if(isset($_POST['antal'])) echo $_POST['antal'];?>">
       	<input type="submit" id="btnSubmit" name="btnSubmit" value="Add to cart" disabled>
     	</form>
+    </div>
 
 
     <?php
@@ -87,5 +89,6 @@
       echo '</script>';
     ?>
   </div>
+  <canvas class="parallax"></canvas>
 </body>
 </html>

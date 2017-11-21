@@ -2,11 +2,20 @@
   text-align: center;
 }
 .description{
-  width: 30%;
+  width: 25%;
   float: left;
   text-align: justify;
+  margin: 2% 0;
 }
 .productImage{
   float:left;
-  margin: 2% 3%;
+  margin: 2% 10% 2% 28%;
+}
+
+.info{
+  margin: 0 0 0 48%;
+  float:left;
+  clear:both;
+  position:relative;
+  bottom: 90px;
 }
