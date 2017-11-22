@@ -2,62 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #393939;
-}
-
-li {
-    float: left;
-}
-
-li a, .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: #16a426;
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {background-color: #16a426}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-</style>
+  <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
 </head>
 <body>
 
-<?php 
+<?php
 	include "../Html/menu.html";
 	session_start();
 	$_SESSION['message']='';
@@ -72,22 +21,22 @@ li.dropdown {
 
 		$stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES ('" . $_POST["username"] . "', '" . $_POST["password"] . "', '" . $_POST["Namn"] . "', '" . ($_POST["Address"]) . "', '" . 'pleb' . "')");
 		$stmt->execute();
-		
+
 		//echo "<script> alert('You are now registered, thank you!'); window.location='/~adasaw-5/root/Index.html'; </script>";
 		$stmt1=$db->prepare("Select * FROM Users WHERE Username ='" . $_POST["username"] . "'");
 		$stmt1->execute();
 		$row = $stmt1->fetch(PDO::FETCH_ASSOC);
-		
+
 		$_SESSION['username']= $row['Username'];
 		$_SESSION['u_name']= $row['Namn'];
 		$_SESSION['u_add']= $row['Adress'];
-				
+
 				//echo "<script> alert('Welcome to the store! You are now signed in.'); window.location='/~adasaw-5/root/Php/Account.php?login=success'; </script>";
 		header("Location: Account.php?login=success");
 		exit();
 
-		
-		
+
+
 	}
 
 	?>
@@ -104,14 +53,14 @@ li.dropdown {
 			<input type="text" placeholder="Enter Address" name="Address" value="<?php if(isset($_POST['Address'])) echo $_POST['Address'];?>" required>
 			<label>Password</label>
             <input type="password" placeholder="Enter Password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>" required>
-           
-			
+
+
             <div class="clear">
                 <button type="button" class="cancelbtn">Cancel</button>
                 <button type="submit" class="signupbtn">Register</button>
             </div>
         </div>
-    </form> 
+    </form>
 
 </body>
 </html>
