@@ -28,8 +28,10 @@
 		$row = $stmt1->fetch(PDO::FETCH_ASSOC);
 
 		$_SESSION['username']= $row['Username'];
+    $_SESSION['u_ID']= $row['ID'];
 		$_SESSION['u_name']= $row['Namn'];
 		$_SESSION['u_add']= $row['Adress'];
+    $_SESSION['u_Role']= $row['Roll'];
 
 				//echo "<script> alert('Welcome to the store! You are now signed in.'); window.location='/~adasaw-5/root/Php/Account.php?login=success'; </script>";
 		header("Location: Account.php?login=success");

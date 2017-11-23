@@ -51,17 +51,25 @@
 
 
     	if($_SERVER['REQUEST_METHOD']=='POST'){
-    		$random = rand();
-    		$stmt = $db->prepare("INSERT INTO Ordrar (ID,Datum,Status,Username,Ok) VALUES ('" . ($random) . "', '" . date("Y-m-d") . "', '" . "ok" . "', '" . ($_SESSION['username']) . "','" . 0 . "') ON DUPLICATE KEY UPDATE ID=". rand());
-    		$stmt->execute();
-    		$stmt1 = $db->prepare("INSERT INTO Produkter_Ordrar(Produkter_ID, Ordrar_ID, Antal) VALUES ('".$id."','". $random ."', '". $_POST['antal']. "' )");
-    		$stmt1->execute();
-    		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
-    		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,'" . ($_SESSION['u_ID']) ."')");
+        $stmt->execute();
+        //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
+        $LastID=$db->lastInsertId();
+        echo $db->lastInsertId();
+        $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES ('". $LastID . "', '" . ($id) ."', '" . $_POST['antal'] ."')");
+        $stmt1->execute();
+        //$stmt = $db->prepare("INSERT INTO Ordrar (ID,Users_ID,Datum,Status,OrderID) VALUES ('" . ($random) . "', '" . ($_SESSION['u_ID']) ."', '" . date("Y-m-d") ."', '".  $NewOrder . "','".$OrderIDR."')");
+    		//$stmt->execute();
+        // $stmt = $db->prepare("INSERT INTO Ordrar (ID,Users_ID,Datum,Status,OrderID) VALUES ('" . ($random) . "', '" . ($_SESSION['u_ID']) . "', '" . date("Y-m-d") . "','Order'," . $OrderIDR . "')");
+    		// $stmt->execute();
+    		// $stmt1 = $db->prepare("INSERT INTO Produkter_Ordrar(Produkter_ID, Ordrar_ID, Antal) VALUES ('".$id."','". $random ."', '". $_POST['antal']. "' )");
+    		// $stmt1->execute();
+    		 $rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
+    		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
     		$_SESSION['ProductID'] = $id;
 
-    		echo "<br> Added to your cart <br>";
+    		echo "Added to your cart <br>";
     	}
 
       ?>

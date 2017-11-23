@@ -32,7 +32,7 @@
 			if($_POST["password"] == $row['Password']){
 				//Starting a new session for the user->login the user
 				//echo "<script> alert('USER FOUND IN DATABASE!')</script>";
-        $_SESSION['id']= $row['ID'];
+        $_SESSION['u_ID']= $row['ID'];
 				$_SESSION['username']= $row['Username'];
 				$_SESSION['u_name']= $row['Namn'];
 				$_SESSION['u_add']= $row['Adress'];
