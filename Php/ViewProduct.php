@@ -65,7 +65,7 @@
     		// $stmt->execute();
     		// $stmt1 = $db->prepare("INSERT INTO Produkter_Ordrar(Produkter_ID, Ordrar_ID, Antal) VALUES ('".$id."','". $random ."', '". $_POST['antal']. "' )");
     		// $stmt1->execute();
-    		 $rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
+    		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
     		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
     		$_SESSION['ProductID'] = $id;
 

@@ -78,13 +78,16 @@ li.dropdown {
 						echo "Address: " . $_SESSION['u_add']. "<br>";
 						$TotalPris=0;
 
-						$sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."' AND Ok=1" );
+						// $sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."' AND Ok=1" );
+						// $sql->execute();
+            $sql = $db->prepare("SELECT * FROM Ordrar WHERE Users_ID ='". $_SESSION['u_ID']."'" );
 						$sql->execute();
-						echo "<br><br> Your placed orders: <br><br>";
-						while($row = $sql->fetch(PDO::FETCH_ASSOC)){
-						echo "Order number: " . $row['ID'] . "<br>";
 
-							$sqlO = $db->prepare("SELECT * FROM Produkter_Ordrar WHERE Ordrar_ID ='". $row['ID'] ."'" );
+						echo "<br><br> Your placed orders: <br><br>";
+
+						while($row = $sql->fetch(PDO::FETCH_ASSOC)){
+
+							$sqlO = $db->prepare("SELECT * FROM Produkter_Ordrar WHERE OrderID ='". $row['OrderID'] ."'" );
 							$sqlO->execute();
 							$rowO = $sqlO->fetch(PDO::FETCH_ASSOC);
 
