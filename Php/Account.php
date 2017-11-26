@@ -111,10 +111,10 @@ li.dropdown {
 						echo "Address: " . $_SESSION['u_add']. "<br>";
 
 						$TotalPris=0;
-						$sql = $db->prepare("SELECT * FROM Ordrar WHERE Ok=1 AND Status='ok'" );
+						$sql = $db->prepare("SELECT * FROM Ordrar WHERE Status='New Order, waiting to be delivered.'" );
 						$sql->execute();
 						echo "<br><br> Orders: <br><br>";
-                        echo "<form method='post'";
+            echo "<form method='post'";
 						while($row = $sql->fetch(PDO::FETCH_ASSOC)){
 
 							$sqlO = $db->prepare("SELECT * FROM Produkter_Ordrar WHERE Ordrar_ID ='". $row['ID'] ."'" );
@@ -125,7 +125,7 @@ li.dropdown {
 							$sqlP->execute();
 							$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
 							$TotalPris += $rowP['Pris']*$rowO['Antal'];
-							echo "<br>Order placed by <br> USER: ".$row['Username'] ." <br>Order number: " . $row['ID']. "<br>Product: " .$rowP['Namn']." <br> Amount: " . $rowO['Antal'] . "<br>Price: " .$rowP['Pris']*$rowO['Antal']."<br>" ;
+							echo "<br>Order placed by <br> USER ID: ".$row['Users_ID'] ." <br>Order number: " . $row['ID']. "<br>Product: " .$rowP['Namn']." <br> Amount: " . $rowO['Antal'] . "<br>Price: " .$rowP['Pris']*$rowO['Antal']."<br>" ;
                            // echo "<input type='submit' name ='use_button' value=".$row['ID']." />";
                             echo "<button type='submit' class='button3' name ='use_button' value=".$row['ID'].">Deliver</button>";
                             echo "<br>";
@@ -134,7 +134,7 @@ li.dropdown {
                         echo "</form>";
                         if(isset($_POST["use_button"]))
                             {
-                                //ändra status på odern
+                              //ändra status på odern
                               $sql_deliver = $db->prepare("UPDATE Ordrar SET Status = 'Delivered' WHERE Ordrar.ID =". $_POST['use_button']);
                               $sql_deliver->execute();
                               echo "<script> alert('Order is delivered!');window.location='/~adasaw-5/root/Php/Account.php';</script>";
