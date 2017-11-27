@@ -39,11 +39,14 @@
     	if(isset($_POST['search'])){
     		$searchValue = $_POST['search'];
     		$stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori LIKE '%$searchValue%' OR Namn LIKE '%$searchValue%'");
+        $stmt->execute();
     	}
-    	else{
-    	   $stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori = 'vape'");
-    	}
-    	$stmt->execute();
+    	else if(isset($_GET['category'])){
+          $category = $_GET['category'];
+          $stmt = $db->prepare("SELECT * FROM Produkter WHERE kategori = '$category'");
+          $stmt->execute();
+      }
+
 
     	echo "<ul class='storeList'>";
     	$i = 1;
