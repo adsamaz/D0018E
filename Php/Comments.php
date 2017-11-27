@@ -24,31 +24,33 @@
         $stmt->execute();
         $stmtR = $db->prepare("SELECT * FROM Ratings WHERE Produkter_ID=$id");
         $stmtR->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC) AND $rowR = $stmtR->fetch(PDO::FETCH_ASSOC)){
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+          $Comment = $row['Kommentar'];
+          $uID = $row['Users_ID'];
+          $stmtU = $db->prepare("SELECT * FROM Users WHERE ID=$uID");
+          $stmtU->execute();
+          $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
+          echo "<b>" . $rowU['Username'] . "</b><br>";
+          echo " <b>Comment:</b> " . $Comment . "<br />";
 
-        $Comment = $row['Kommentar'];
-        $uID = $row['Users_ID'];
-        $Rating = $rowR['Rating'];
-
-        $stmtU = $db->prepare("SELECT * FROM Users WHERE ID=$uID");
-        $stmtU->execute();
-
-        $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
-        echo "<b>" . $rowU['Username'] . "</b><br>";
-        echo " <b>Comment:</b> " . $Comment . "<br />";
-        echo " <b>Rating:</b> " . $Rating . "<br />";
-
-        if($Rating!=0){
+          $stmtRate = $db->prepare("SELECT * FROM Ratings WHERE Users_ID=$uID AND Produkter_ID=$id");
+          $stmtRate->execute();
+          $rowRate = $stmtRate->fetch(PDO::FETCH_ASSOC);
+          echo " <b>Rating:</b> " . $rowRate['Rating'] . "<br /> <br>";
+        }
+        while ($rowR = $stmtR->fetch(PDO::FETCH_ASSOC)){
+          $Rating = $rowR['Rating'];
           $TotalRating+=$Rating;
           $SummaRating++;
+      //    echo " <b>Rating:</b> " . $Rating . "<br />";
         }
-        }
+
         if($TotalRating!=0 && $SummaRating!=0){
           $SlutRating=($TotalRating/$SummaRating);
         }
         echo "<b>General rating:</b> ". $SlutRating ."<br>";
-        if($_SERVER['REQUEST_METHOD']=='POST'){
 
+        if($_SERVER['REQUEST_METHOD']=='POST'){
           if (isset($_POST['rating'])){
             //$rating_value = $_POST['rating'];
             $stmtC = $db->prepare("SELECT * FROM Ratings WHERE Users_ID='".($_SESSION['u_ID'])."' AND Produkter_ID=$id");
@@ -86,6 +88,7 @@
     <input type="submit" id="btnSubmit" name="btnSubmit" value="Comment">
 
   </form>
+
   <form name="Rate" method="post" action=""><br>
   <label> Rate this product <br> </label>
   <input type="radio" id="ratingETT" name="rating" value="1" onclick="this.form.submit();" />
@@ -98,8 +101,7 @@
   <label for="ratingFYRA">4</label>
   <input type="radio" id="ratingFEM" name="rating" value="5" onclick="this.form.submit();"/>
   <label for="ratingFEM">5</label>
-</form>
-</div>
+  </form>
 
 </body>
 </html>

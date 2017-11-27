@@ -22,7 +22,7 @@
 				}
 				if(isset($_SESSION['username'])){
 					include "../Html/LogIN.html";
-					if($_SESSION['u_role']=='pleb'){
+					if($_SESSION['u_Role']=='pleb'){
 						echo "Welcome " . $_SESSION['u_name']. " you are now logged in <br><br> Account information: <br>" ;
 						echo "Username: " . $_SESSION['username']. "<br>";
 						echo "Name: " . $_SESSION['u_name']. "<br>";
@@ -55,7 +55,7 @@
 
 					}
 
-				else if($_SESSION['u_role']=='Admin'){
+				else if($_SESSION['u_Role']=='Admin'){
 						echo "Welcome " . $_SESSION['u_name']. " you are now logged in <br><br> Account information: <br>" ;
 						echo "Username: " . $_SESSION['username']. "<br>";
 						echo "Name: " . $_SESSION['u_name']. "<br>";
