@@ -13,9 +13,9 @@
 }
 
 .info{
-  margin: 0 0 0 48%;
+  margin: 2% 0 2% 48%;
   float:left;
   clear:both;
-  position:relative;
-  bottom: 90px;
+  /*position:relative;
+  bottom: 90px;*/
 }
