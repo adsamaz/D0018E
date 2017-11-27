@@ -36,6 +36,12 @@
       }
 
         if($_SERVER['REQUEST_METHOD']=='POST'){
+
+          if (isset($_POST['rating'])){
+              echo "LÖSER RATING EFTER DAGENS MÖTE MED Uffe";
+          }
+
+          else if (isset($_POST['Comment'])){
           $stmtE = $db->prepare("SELECT * FROM Kommentarer WHERE Users_ID='".($_SESSION['u_ID'])."' AND Produkter_ID=$id");
           $stmtE->execute();
           $rowE = $stmtE->fetch(PDO::FETCH_ASSOC);
@@ -46,6 +52,7 @@
           $stmtPost->execute();
           header("Location: Comments.php?ID=$id");
           }
+        }
 
 
 	}
@@ -55,7 +62,20 @@
     <label for="antal">Write a comment:</label>
     <input type="text" id="Comment" name="Comment" value="<?php if(isset($_POST['Comment'])) echo $_POST['Comment'];?>">
     <input type="submit" id="btnSubmit" name="btnSubmit" value="Comment">
+
   </form>
+  <form name="Rate" method="post" action=""><br>
+  <input type="radio" id="ratingETT" name="rating" value="1" onclick="this.form.submit();" />
+  <label for="ratingETT">1</label>
+  <input type="radio" id="ratingTVA" name="rating" value="2" onclick="this.form.submit();"/>
+  <label for="ratingTVA">2</label>
+  <input type="radio" id="ratingTRE" name="rating" value="3" onclick="this.form.submit();"/>
+  <label for="ratingTRE">3</label>
+  <input type="radio" id="ratingFYRA" name="rating" value="4" onclick="this.form.submit();"/>
+  <label for="ratingFYRA">4</label>
+  <input type="radio" id="ratingFEM" name="rating" value="5" onclick="this.form.submit();"/>
+  <label for="ratingFEM">5</label>
+</form>
 </div>
 
 </body>

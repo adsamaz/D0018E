@@ -48,7 +48,7 @@
     	echo "<div class='description'><h3>Description</h3>" . $row['Beskrivning'] . "</div>";
     	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
-      echo "<a class='button' href='/~adasaw-5/root/Php/Comments.php?ID=".$id."' target='blank'>Comments</a>";
+      echo "<a class='button' href='/~adasaw-5/root/Php/Comments.php?ID=".$id."' target='blank'>Comments and ratings for this product</a>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
 
         $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,'" . ($_SESSION['u_ID']) ."')");
@@ -67,14 +67,14 @@
 
       ?>
       <div id="largeOrder"> </div>
-
-
-
     	<form action="" method="post">
         <label for="antal">Amount:</label>
       	<input type="text" onkeyup="checkAmount()" id="antal" name="antal" value="<?php if(isset($_POST['antal'])) echo $_POST['antal'];?>">
       	<input type="submit" id="btnSubmit" name="btnSubmit" value="Add to cart" disabled>
+
+</form>
     	</form>
+
     </div>
 
 
