@@ -48,20 +48,21 @@
     	echo "<div class='description'><h3>Description</h3>" . $row['Beskrivning'] . "</div>";
     	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
-
-
+      echo "<a class='button' href='/~adasaw-5/root/Php/Comments.php?ID=".$id."' target='blank'>Comments</a>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
-    		$random = rand();
-    		$stmt = $db->prepare("INSERT INTO Ordrar (ID,Datum,Status,Username,Ok) VALUES ('" . ($random) . "', '" . date("Y-m-d") . "', '" . "ok" . "', '" . ($_SESSION['username']) . "','" . 0 . "') ON DUPLICATE KEY UPDATE ID=". rand());
-    		$stmt->execute();
-    		$stmt1 = $db->prepare("INSERT INTO Produkter_Ordrar(Produkter_ID, Ordrar_ID, Antal) VALUES ('".$id."','". $random ."', '". $_POST['antal']. "' )");
-    		$stmt1->execute();
+
+        $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,'" . ($_SESSION['u_ID']) ."')");
+        $stmt->execute();
+        //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
+        $LastID=$db->lastInsertId();
+        echo $db->lastInsertId();
+        $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES ('". $LastID . "', '" . ($id) ."', '" . $_POST['antal'] ."')");
+        $stmt1->execute();
     		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
     		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
-
     		$_SESSION['ProductID'] = $id;
 
-    		echo "<br> Added to your cart <br>";
+    		echo "Added to your cart <br>";
     	}
 
       ?>

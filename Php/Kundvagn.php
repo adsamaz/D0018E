@@ -23,23 +23,21 @@
 		if(isset($_SESSION['username'])){
 					include "../Html/LogIN.html";
 					echo "<h3>Your cart</h3>";
-					$sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."' AND Ok=0" );
+          $sql = $db->prepare("SELECT * FROM Kundvagn WHERE Users_ID ='". $_SESSION['u_ID']."'" );
 					$sql->execute();
 					$TotalPris=0;
 					echo "Welcome " . $_SESSION['u_name']. " to the shopping cart <br><br> Your orders: <br>" ;
 
 					while($row = $sql->fetch(PDO::FETCH_ASSOC)){
-						echo "Order number: " . $row['ID'] . "<br>";
+					//	echo "Order number: " . $row['ID'] . "<br>";
 
-						$sqlO = $db->prepare("SELECT * FROM Produkter_Ordrar WHERE Ordrar_ID ='". $row['ID'] ."'" );
+            $sqlO = $db->prepare("SELECT * FROM Kundvagn_has_Produkter WHERE ID ='". $row['ID'] ."'" );
 						$sqlO->execute();
 						$rowO = $sqlO->fetch(PDO::FETCH_ASSOC);
-
 						$sqlP=$db->prepare("SELECT * FROM Produkter WHERE ID ='". $rowO['Produkter_ID'] ."'" );
 						$sqlP->execute();
 						$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
 						$TotalPris += $rowP['Pris']*$rowO['Antal'];
-
 						echo "Product: " .$rowP['Namn']." - Amount: " . $rowO['Antal'] . "- Price: " .$rowP['Pris']*$rowO['Antal']."<br>" ;
 
 
@@ -56,20 +54,39 @@
 
 						if(isset($_POST['use_button']))
 						{
+              $random=rand();
+              $OrderIDR=($_SESSION['username']).$random;
+              $NewOrder='New Order, waiting to be delivered.';
 
-							$sql = $db->prepare("UPDATE Ordrar SET Ok = '1' WHERE Ordrar.Username = '". $_SESSION['username']."'" );
-							$sql->execute();
+              $stmt = $db->prepare("INSERT INTO Ordrar (ID,Users_ID,Datum,Status,OrderID) VALUES ('" . ($random) . "', '" . ($_SESSION['u_ID']) ."', '" . date("Y-m-d") ."', '".  $NewOrder . "','". $OrderIDR."')");
+              $stmt->execute();
+
+              $sql = $db->prepare("SELECT * FROM Kundvagn WHERE Users_ID ='". $_SESSION['u_ID']."'" );
+    					$sql->execute();
+    					while($row = $sql->fetch(PDO::FETCH_ASSOC)){
+    					//	echo "Order number: " . $row['ID'] . "<br>";
+                $sqlO = $db->prepare("SELECT * FROM Kundvagn_has_Produkter WHERE ID ='". $row['ID'] ."'" );
+    						$sqlO->execute();
+    						$rowO = $sqlO->fetch(PDO::FETCH_ASSOC);
+                $stmt1 = $db->prepare("INSERT INTO Produkter_Ordrar(Produkter_ID, Ordrar_ID, Antal, OrderID) VALUES ('".$rowO['Produkter_ID']."','". $random ."','".$rowO['Antal']."','". $OrderIDR . "' )");
+                $stmt1->execute();
+                $sqlDel = $db->prepare("DELETE FROM Kundvagn_has_Produkter WHERE Kundvagn_has_Produkter.ID =". $row['ID']);
+                $sqlDel->execute();
+                $sqlDelK = $db->prepare("DELETE FROM Kundvagn WHERE Kundvagn.ID =". $row['ID']);
+                $sqlDelK->execute();
+    					}
+
 							echo "<script> alert('Thank you for the order!'); window.location='/~adasaw-5/root/Php/Kundvagn.php'; </script>";
 						}
 						if(isset($_POST['Clear_button']))
 						{
-							$sqlD=$db->prepare("SELECT ID FROM Ordrar WHERE Ok = '0' AND Username ='". $_SESSION['username'] ."'" );
-							$sqlD->execute();
+              $sqlD = $db->prepare("SELECT * FROM Kundvagn WHERE Users_ID ='". $_SESSION['u_ID']."'" );
+    					$sqlD->execute();
 							while($rowD = $sqlD->fetch(PDO::FETCH_ASSOC)){
-								$sqlDelete1 = $db->prepare("DELETE FROM Produkter_Ordrar WHERE Ordrar_ID = '". $rowD['ID']."'" );
-								$sqlDelete1->execute();
-								$sqlDelete = $db->prepare("DELETE FROM Ordrar WHERE ID = '". $rowD['ID'] ."'" );
-								$sqlDelete->execute();
+                $sqlDel = $db->prepare("DELETE FROM Kundvagn_has_Produkter WHERE Kundvagn_has_Produkter.ID =". $rowD['ID']);
+                $sqlDel->execute();
+                $sqlDelK = $db->prepare("DELETE FROM Kundvagn WHERE Kundvagn.ID =". $rowD['ID']);
+                $sqlDelK->execute();
 							}
 
 
