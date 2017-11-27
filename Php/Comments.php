@@ -17,28 +17,50 @@
 		echo $e->getMessage();
 	}
         $id = $_GET['ID'];
-
+        $TotalRating=0;
+        $SummaRating=0;
+        $SlutRating=0;
         $stmt = $db->prepare("SELECT * FROM Kommentarer WHERE Produkter_ID=$id");
         $stmt->execute();
-
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        $stmtR = $db->prepare("SELECT * FROM Ratings WHERE Produkter_ID=$id");
+        $stmtR->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC) AND $rowR = $stmtR->fetch(PDO::FETCH_ASSOC)){
 
         $Comment = $row['Kommentar'];
         $uID = $row['Users_ID'];
+        $Rating = $rowR['Rating'];
 
         $stmtU = $db->prepare("SELECT * FROM Users WHERE ID=$uID");
         $stmtU->execute();
 
         $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
-
         echo "<b>" . $rowU['Username'] . "</b><br>";
         echo " <b>Comment:</b> " . $Comment . "<br />";
-      }
+        echo " <b>Rating:</b> " . $Rating . "<br />";
 
+        if($Rating!=0){
+          $TotalRating+=$Rating;
+          $SummaRating++;
+        }
+        }
+        if($TotalRating!=0 && $SummaRating!=0){
+          $SlutRating=($TotalRating/$SummaRating);
+        }
+        echo "<b>General rating:</b> ". $SlutRating ."<br>";
         if($_SERVER['REQUEST_METHOD']=='POST'){
 
           if (isset($_POST['rating'])){
-              echo "LÖSER RATING EFTER DAGENS MÖTE MED Uffe";
+            //$rating_value = $_POST['rating'];
+            $stmtC = $db->prepare("SELECT * FROM Ratings WHERE Users_ID='".($_SESSION['u_ID'])."' AND Produkter_ID=$id");
+            $stmtC->execute();
+            $rowC = $stmtC->fetch(PDO::FETCH_ASSOC);
+            if($rowC['Users_ID']!=NULL){
+              echo "You can only post one rating per product";
+            }else{
+            $stmtPost = $db->prepare("INSERT INTO Ratings (Users_ID,Produkter_ID,Rating) VALUES ('".($_SESSION['u_ID'])."','".$id."','".$_POST['rating']."')");
+            $stmtPost->execute();
+            header("Location: Comments.php?ID=$id");
+            }
           }
 
           else if (isset($_POST['Comment'])){
@@ -65,6 +87,7 @@
 
   </form>
   <form name="Rate" method="post" action=""><br>
+  <label> Rate this product <br> </label>
   <input type="radio" id="ratingETT" name="rating" value="1" onclick="this.form.submit();" />
   <label for="ratingETT">1</label>
   <input type="radio" id="ratingTVA" name="rating" value="2" onclick="this.form.submit();"/>
