@@ -24,6 +24,7 @@
         $stmt->execute();
         $stmtR = $db->prepare("SELECT * FROM Ratings WHERE Produkter_ID=$id");
         $stmtR->execute();
+
         while($row = $stmt->fetch(PDO::FETCH_ASSOC) ){
           $Comment = $row['Kommentar'];
           $uID = $row['Users_ID'];
