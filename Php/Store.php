@@ -58,10 +58,10 @@
         $id = $row['ID'];
         $ImageID = $row['Bild'];
 
-        echo "<div class='productBox'><a href='ViewProduct.php?ID=$id'><h3>" . $row['Namn'] . "</h3>";
+        echo "<a href='ViewProduct.php?ID=$id'><div class='productBox'><h3>" . $row['Namn'] . "</h3>";
         echo "<img src='../Images/ProductImage$ImageID.jpg' />";
         echo "<br /><br /> <b>Price:</b> $" . $row['Pris'];
-        echo " <b>In Stock:</b> " . $row['LagerAntal'] . "</a></div>";
+        echo " <b>In Stock:</b> " . $row['LagerAntal'] . "</div></a>";
 
 
 
