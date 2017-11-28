@@ -55,14 +55,13 @@
         $stmt->execute();
         //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
         $LastID=$db->lastInsertId();
-        echo $db->lastInsertId();
         $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES ('". $LastID . "', '" . ($id) ."', '" . $_POST['antal'] ."')");
         $stmt1->execute();
     		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
     		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
     		$_SESSION['ProductID'] = $id;
 
-    		echo "Added to your cart <br>";
+    		echo "<br> Added to your cart <br>";
     	}
 
       ?>
