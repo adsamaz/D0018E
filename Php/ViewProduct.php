@@ -3,6 +3,8 @@
 <?php session_start();?>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="../Css/FooterStyle.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
     <link rel="stylesheet" type="text/css" href="../Css/ViewProductStyle.css">
     <script type="text/javascript" src="../Javascript/disableButtonOutOfStock.js"></script>
@@ -45,7 +47,7 @@
 
     	echo "<h1>" . $row['Namn'] . "</h1>";
       echo "<img class='productImage' src='../Images/ProductImage$ImageID.jpg' />";
-    	echo "<div class='description'><h3>Description</h3>" . $row['Beskrivning'] . "</div>";
+    	echo "<div class='description'><h3>Description</h3><p>" . $row['Beskrivning'] . "</p></div>";
     	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
       echo "<a class='button' href='/~adasaw-5/root/Php/Comments.php?ID=".$id."' target='blank'>Comments and ratings for this product</a>";
@@ -90,5 +92,6 @@
     ?>
   </div>
   <canvas class="parallax"></canvas>
+  <?php include "../Html/Footer.html"; ?>
 </body>
 </html>

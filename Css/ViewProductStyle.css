@@ -7,6 +7,10 @@
   text-align: justify;
   margin: 2% 0;
 }
+.description p{
+  font: normal 15px sans-serif;
+}
+
 .productImage{
   float:left;
   margin: 2% 10% 2% 28%;

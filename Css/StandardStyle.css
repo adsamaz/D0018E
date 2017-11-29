@@ -5,6 +5,7 @@
 body, html {
     height: 100%;
     overflow:auto;
+    font: bold 16px sans-serif;
 }
 #wrap{
     min-height:72%;
@@ -79,8 +80,8 @@ ul.menu .dropdown:hover .dropdown-content {
     background-image: url("../Images/Background.jpg");
 
     /* Full height */
-    height: 50%;
-
+    height: 40%;
+    display: block;
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
