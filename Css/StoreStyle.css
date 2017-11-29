@@ -10,13 +10,15 @@
 }
 
 .productBox{
-  border: solid 1px #808080;
+  border: solid 1px #bfbfbf;
   border-radius: 10px;
   width: 17%;
 	float:left;
 	margin:2% 3%;
   color: black;
   text-align: center;
+  box-sizing: border-box;
+  height:260px;
 
 }
 .productBox *{
@@ -25,7 +27,12 @@
 }
 .productBox:hover{
     opacity:0.4;
-    -webkit-transition: opacity 0.5s;
+    border: solid 1px #ff0000;
+    -webkit-transition: opacity 0.4s, border-color 0.3s ease-in;
+    -o-transition: opacity 0.4s, border-color 0.3s ease-in;
+    -moz-transition: opacity 0.4s, border-color 0.3s ease-in;
+    transition: opacity 0.4s, border-color 0.3s ease-in;
+
 }
 .clear{
   clear:left;
