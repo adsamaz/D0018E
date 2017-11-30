@@ -8,6 +8,11 @@
 .searchForm{
   margin-left:3%;
 }
+.searchField{
+  position: relative;
+  bottom:9px;
+  border-radius: 10px;
+}
 
 .productBox{
   border: solid 1px #bfbfbf;

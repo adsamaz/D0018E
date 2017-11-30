@@ -27,7 +27,7 @@
     <h1>Vapes</h1>
   	<form class="searchForm" action ="Store.php" method="post">
   			<input type="text" class="searchField" name="search" placeholder="Search" />
-  			<input type="submit" class="searchButton" name="btnSearch" value="Search" />
+  			<input type="image" class="searchButton" name="btnSearch" value="Search" src="../Images/Search.png" />
   	</form>
 
     <?php
@@ -61,7 +61,7 @@
       $ImageID = $row['Bild'];
 
       echo "<a href='ViewProduct.php?ID=$id'><div class='productBox'><h3>" . $row['Namn'] . "</h3>";
-      echo "<img src='../Images/ProductImage$ImageID.jpg' />";
+      echo "<img src='../Images/ProductImage$ImageID.png' />";
       echo "<br /><br /> <b>Price:</b> $" . $row['Pris'];
       echo " <b>In Stock:</b> " . $row['LagerAntal'] . "</div></a>";
 

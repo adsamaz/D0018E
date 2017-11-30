@@ -46,7 +46,7 @@
       $ImageID = $row['Bild'];
 
     	echo "<h1>" . $row['Namn'] . "</h1>";
-      echo "<img class='productImage' src='../Images/ProductImage$ImageID.jpg' />";
+      echo "<img class='productImage' src='../Images/ProductImage$ImageID.png' />";
     	echo "<div class='description'><h3>Description</h3><p>" . $row['Beskrivning'] . "</p></div>";
     	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
