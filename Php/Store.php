@@ -2,7 +2,9 @@
 <?php	session_start(); ?>
 <html>
 <head>
+	<title>VapeNation AB</title>
     <meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="https://www141.lunapic.com/do-not-link-here-use-hosting-instead/151204557286539?2124486025">
     <link rel="stylesheet" type="text/css" href="../Css/FooterStyle.css">
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
