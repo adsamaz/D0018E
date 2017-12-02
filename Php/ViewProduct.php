@@ -3,6 +3,7 @@
 <?php session_start();?>
 <html>
 <head>
+    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="../Css/FooterStyle.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
@@ -10,6 +11,7 @@
     <script type="text/javascript" src="../Javascript/disableButtonOutOfStock.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="../Javascript/Smoke.js"></script>
+    <script type="text/javascript" src="../Javascript/ActiveLink.js"></script>
 </head>
 
 <body>
