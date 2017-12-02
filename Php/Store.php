@@ -4,13 +4,14 @@
 <head>
 	<title>VapeNation AB</title>
     <meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="https://www141.lunapic.com/do-not-link-here-use-hosting-instead/151204557286539?2124486025">
+		<link rel="icon" type="image/png" href="https://febrezeinwash.com/wp-content/themes/febreze/images/smoke_icon_vector.png">
     <link rel="stylesheet" type="text/css" href="../Css/FooterStyle.css">
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
     <link rel="stylesheet" type="text/css" href="../Css/StoreStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="../Javascript/Smoke.js"></script>
+		<script type="text/javascript" src="../Javascript/ActiveLink.js"></script>
 
 </head>
 
@@ -26,7 +27,7 @@
   ?>
   <canvas class="parallax"></canvas>
   <div id="wrap">
-    <h1>Vapes</h1>
+    <h1>Products</h1>
   	<form class="searchForm" action ="Store.php" method="post">
   			<input type="text" class="searchField" name="search" placeholder="Search" />
   			<input type="image" class="searchButton" name="btnSearch" value="Search" src="../Images/Search.png" />

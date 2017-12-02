@@ -1,7 +1,6 @@
 #wrap{
-  /*height:100%;*/
+  padding:3% 0;
 }
-
 .content{
   /*margin:5px 10px;*/
 }
@@ -13,11 +12,14 @@
   bottom:9px;
   border-radius: 10px;
 }
+.searchButton:hover{
+  opacity: 0.7;
+}
 
 .productBox{
   border: solid 1px #bfbfbf;
   border-radius: 10px;
-  width: 17%;
+  width: 245px;
 	float:left;
 	margin:2% 3%;
   color: black;

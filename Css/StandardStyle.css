@@ -42,7 +42,7 @@ ul.menu a, .dropbtn {
     text-decoration: none;
 }
 
-ul.menu a:hover, .dropdown:hover .dropbtn {
+ul.menu a:hover, .dropdown:hover .dropbtn, .active{
     background-color: #16a426;
 }
 
