@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
+  <title>VapeNation AB</title>
+    <meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="https://febrezeinwash.com/wp-content/themes/febreze/images/smoke_icon_vector.png">
+    <link rel="stylesheet" type="text/css" href="../Css/FooterStyle.css">
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
+    <link rel="stylesheet" type="text/css" href="../Css/LoginStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="../Javascript/Smoke.js"></script>
+		<script type="text/javascript" src="../Javascript/ActiveLink.js"></script>
 </head>
 
 <body>
@@ -51,26 +60,29 @@
 	}
 
 	?>
+    <canvas class="parallax"></canvas>
+    <div id="wrap">
 
-    <form name="Login" method="post" action="">
-		<div class="alert"> <?=$_SESSION['message']?></div>
-		    <div class="container">
-            <label>Username</label>
-            <input type="text" placeholder="Username" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>" required>
-			<label>Password</label>
-            <input type="password" placeholder="Password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>" required>
-
-
-            <div class="clear">
-                <button type="Login" class="loginbtn">Login</button>
-
-            </div>
-        </div>
+      <form name="Login" method="post" action="">
+  		<div class="alert"> <?=$_SESSION['message']?></div>
+  		    <div class="container">
+              <label>Username</label>
+              <input type="text" placeholder="Username" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>" required />
+  			      <label>Password</label>
+              <input type="password" placeholder="Password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>" required />
 
 
-        </table>
-    </form>
+              <div class="clear">
+                  <button type="Login" class="loginbtn">Login</button>
+
+              </div>
+          </div>
 
 
+          </table>
+      </form>
+    </div>
+    <canvas class="parallax"></canvas>
+    <?php include "../Html/Footer.html"; ?>
 </body>
 </html>

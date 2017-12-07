@@ -2,6 +2,7 @@
 <?php	session_start(); ?>
 <html>
 <head>
+  <title>VapeNation AB</title>
   <meta charset="utf-8" />
   <link rel="icon" type="image/png" href="https://febrezeinwash.com/wp-content/themes/febreze/images/smoke_icon_vector.png">
   <link rel="stylesheet" type="text/css" href="../Css/FooterStyle.css">
