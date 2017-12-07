@@ -58,7 +58,8 @@
             $stmtC->execute();
             $rowC = $stmtC->fetch(PDO::FETCH_ASSOC);
             if($rowC['Users_ID']!=NULL){
-              echo "You can only post one rating per product";
+              $stmtPost = $db->prepare("UPDATE Ratings SET Rating =".$_POST['rating']." WHERE Ratings.Users_ID =".($_SESSION['u_ID'])." AND Ratings.Produkter_ID =".$id."");
+              $stmtPost->execute();
             }else{
             $stmtPost = $db->prepare("INSERT INTO Ratings (Users_ID,Produkter_ID,Rating) VALUES ('".($_SESSION['u_ID'])."','".$id."','".$_POST['rating']."')");
             $stmtPost->execute();

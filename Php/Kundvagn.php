@@ -102,7 +102,7 @@
                   $sqlDelK = $db->prepare("DELETE FROM Kundvagn WHERE Kundvagn.ID =". $row['ID']);
                   $sqlDelK->execute();
 
-  							echo "<script> alert('Thank you for the order!'); window.location='/~adasaw-5/root%20test/Php/Kundvagn.php'; </script>";
+  							echo "<script> alert('Thank you for the order!'); window.location='Kundvagn.php'; </script>";
   						}
             }
   						if(isset($_POST['Clear_button']))

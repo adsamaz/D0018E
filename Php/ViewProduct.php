@@ -52,7 +52,7 @@
     	echo "<div class='description'><h3>Description</h3><p>" . $row['Beskrivning'] . "</p></div>";
     	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
-      echo "<a class='button' href='/~adasaw-5/root/Php/Comments.php?ID=".$id."' target='blank'>Comments and ratings for this product</a>";
+      echo "<a class='button' href='Comments.php?ID=".$id."' target='blank'>Comments and ratings for this product</a>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
         $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
         $stmt->bindValue(':username', ($_SESSION['u_ID']));
