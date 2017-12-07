@@ -27,8 +27,8 @@
 		echo $e->getMessage();
 	}
 	if($_SERVER['REQUEST_METHOD']=='POST'){
-		$stmt=$db->prepare("Select * FROM Users WHERE Username ='" . $_POST["username"] . "'");
-		$stmt->execute();
+		$stmt=$db->prepare("Select * FROM Users WHERE Username = :Username");
+		$stmt->execute(array('Username'=>$_POST["username"]));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if(!$row){
 			$_SESSION['message']="This user dosent exist in the database";

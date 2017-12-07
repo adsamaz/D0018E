@@ -28,12 +28,17 @@
 	}
 	if($_SERVER['REQUEST_METHOD']=='POST'){
 
-		$stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES ('" . $_POST["username"] . "', '" . $_POST["password"] . "', '" . $_POST["Namn"] . "', '" . ($_POST["Address"]) . "', '" . 'pleb' . "')");
-		$stmt->execute();
+		$stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES (:username,:password,:namn,:adress,'pleb')");
+    $stmt->bindValue(':username', $_POST["username"] );
+    $stmt->bindValue(':password', $_POST["password"]);
+    $stmt->bindValue(':namn', $_POST["Namn"]);
+    $stmt->bindValue(':adress', $_POST["Address"]);
+
+    $stmt->execute();
 
 		//echo "<script> alert('You are now registered, thank you!'); window.location='/~adasaw-5/root/Index.html'; </script>";
-		$stmt1=$db->prepare("Select * FROM Users WHERE Username ='" . $_POST["username"] . "'");
-		$stmt1->execute();
+		$stmt1=$db->prepare("Select * FROM Users WHERE Username = :Username");
+		$stmt1->execute(array('Username'=>$_POST["username"]));
 		$row = $stmt1->fetch(PDO::FETCH_ASSOC);
 
 		$_SESSION['username']= $row['Username'];
