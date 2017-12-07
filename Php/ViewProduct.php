@@ -54,11 +54,15 @@
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
       echo "<a class='button' href='/~adasaw-5/root/Php/Comments.php?ID=".$id."' target='blank'>Comments and ratings for this product</a>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
-        $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,'" . ($_SESSION['u_ID']) ."')");
+        $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
+        $stmt->bindValue(':username', ($_SESSION['u_ID']));
         $stmt->execute();
         //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
         $LastID=$db->lastInsertId();
-        $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES ('". $LastID . "', '" . ($id) ."', '" . $_POST['antal'] ."')");
+        $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES (:id,:p_id,:antal)");
+        $stmt1->bindValue(':id', $LastID);
+        $stmt1->bindValue(':p_id', $id);
+        $stmt1->bindValue(':antal', $_POST['antal']);
         $stmt1->execute();
     		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
     		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
