@@ -72,9 +72,7 @@
                 $sqlP->execute();
                 $rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
                 $TotalLager = $rowP['LagerAntal'];
-                echo $TotalLager;
                 $nyttAntal = $TotalLager - $rowO['Antal'];
-                echo $nyttAntal;
                 $sqlP=$db->prepare("UPDATE Produkter SET LagerAntal =".$nyttAntal." WHERE Produkter.ID =".$rowO['Produkter_ID']."");
                 $sqlP->execute();
 
