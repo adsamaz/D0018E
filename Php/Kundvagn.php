@@ -67,12 +67,21 @@
       					$rowO = $sqlO->fetch(PDO::FETCH_ASSOC);
                 $stmt1 = $db->prepare("INSERT INTO Produkter_Ordrar(Produkter_ID, Ordrar_ID, Antal, OrderID) VALUES ('".$rowO['Produkter_ID']."','". $random ."','".$rowO['Antal']."','". $OrderIDR . "' )");
                 $stmt1->execute();
+
+                $sqlP=$db->prepare("SELECT * FROM Produkter WHERE ID ='". $rowO['Produkter_ID'] ."'" );
+                $sqlP->execute();
+                $rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
+                $TotalLager = $rowP['LagerAntal'];
+                $nyttAntal = $TotalLager - $rowO['Antal'];
+                $sqlP=$db->prepare("UPDATE Produkter SET LagerAntal =".$nyttAntal." WHERE Produkter.ID =".$rowO['Produkter_ID']."");
+                $sqlP->execute();
+
                 $sqlDel = $db->prepare("DELETE FROM Kundvagn_has_Produkter WHERE Kundvagn_has_Produkter.ID =". $row['ID']);
                 $sqlDel->execute();
                 $sqlDelK = $db->prepare("DELETE FROM Kundvagn WHERE Kundvagn.ID =". $row['ID']);
                 $sqlDelK->execute();
 
-							echo "<script> alert('Thank you for the order!'); window.location='/~adasaw-5/root/Php/Kundvagn.php'; </script>";
+							echo "<script> alert('Thank you for the order!'); window.location='/~adasaw-5/root%20test/Php/Kundvagn.php'; </script>";
 						}
           }
 						if(isset($_POST['Clear_button']))
