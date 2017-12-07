@@ -10,6 +10,7 @@
 
 <body>
 <?php
+error_reporting(0);
 	try{
 		$db = new PDO('mysql:host=127.0.0.1;port=3306;dbname=adasaw5db', 'adasaw-5', '1234');
 	}
@@ -25,31 +26,72 @@
         $stmtR = $db->prepare("SELECT * FROM Ratings WHERE Produkter_ID=$id");
         $stmtR->execute();
 
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC) ){
-          $Comment = $row['Kommentar'];
-          $uID = $row['Users_ID'];
-          $stmtU = $db->prepare("SELECT * FROM Users WHERE ID=$uID");
-          $stmtU->execute();
-          $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
-          echo "<b>" . $rowU['Username'] . "</b><br>";
-          echo " <b>Comment:</b> " . $Comment . "<br />";
+        while(($row = $stmt->fetch(PDO::FETCH_BOTH)) || ($rowR = $stmtR->fetch(PDO::FETCH_BOTH)))
+        {
+          $User="";
+          $Comment="-";
+          $RatingE="-";
 
-          $stmtRate = $db->prepare("SELECT * FROM Ratings WHERE Users_ID=$uID AND Produkter_ID=$id");
-          $stmtRate->execute();
-          $rowRate = $stmtRate->fetch(PDO::FETCH_ASSOC);
-          echo " <b>Rating:</b> " . $rowRate['Rating'] . "<br /> <br>";
-        }
-        while ($rowR = $stmtR->fetch(PDO::FETCH_ASSOC)){
-          $Rating = $rowR['Rating'];
-          $TotalRating+=$Rating;
-          $SummaRating++;
-      //    echo " <b>Rating:</b> " . $Rating . "<br />";
-        }
+          if(NULL==$row){
+            $uID = $rowR['Users_ID'];
+            $stmtU = $db->prepare("SELECT * FROM Users WHERE ID=$uID");
+            $stmtU->execute();
+            $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
+            //$Comment='-';
+            $User=$rowU['Username'];
+            // echo "<b>" . $rowU['Username'] . "</b><br>";
+            // echo " <b>Comment:</b> - <br />";
+            $stmtRate = $db->prepare("SELECT * FROM Ratings WHERE Users_ID=$uID AND Produkter_ID=$id");
+            $stmtRate->execute();
+            $rowRate = $stmtRate->fetch(PDO::FETCH_ASSOC);
+            $Rating = $rowR['Rating'];
+            $RatingE = (string)$Rating;
+            $TotalRating+=$Rating;
+            $SummaRating++;
+          }
+          else if(NULL==$rowR){
+            $Comment = $row['Kommentar'];
+            $uID = $row['Users_ID'];
+            $stmtU = $db->prepare("SELECT * FROM Users WHERE ID=$uID");
+            $stmtU->execute();
+            $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
+            $User=$rowU['Username'];
+          }
+
+          else{
+            $Comment = $row['Kommentar'];
+            $uID = $row['Users_ID'];
+            $stmtU = $db->prepare("SELECT * FROM Users WHERE ID=$uID");
+            $stmtU->execute();
+            $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
+            $stmtRate = $db->prepare("SELECT * FROM Ratings WHERE Users_ID=$uID AND Produkter_ID=$id");
+            $stmtRate->execute();
+            $rowRate = $stmtRate->fetch(PDO::FETCH_ASSOC);
+            $Rating = $rowR['Rating'];
+            $RatingE=(string)$rowR['Rating'];
+            $TotalRating+=$Rating;
+            $SummaRating++;
+          }
+          echo "<b>" . $User . " - </b>";
+          if($Comment=="-"){
+            echo " <b>Rating:</b> ".$RatingE." <br /> <br>";
+
+          }else if($RatingE=="-"){
+            echo " <b>Comment:</b> " . $Comment . "<br/>";
+          }else{
+            echo " <b>Comment:</b> - <br />";
+            echo " <b>Rating:</b> - <br />";
+
+          }
+
+          }
+
+
 
         if($TotalRating!=0 && $SummaRating!=0){
           $SlutRating=($TotalRating/$SummaRating);
         }
-        echo "<b>General rating:</b> ". $SlutRating ."<br>";
+       echo "<b>General rating:</b> ". $SlutRating ."<br>";
 
         if($_SERVER['REQUEST_METHOD']=='POST'){
           if (isset($_POST['rating'])){
@@ -58,21 +100,24 @@
             $stmtC->execute();
             $rowC = $stmtC->fetch(PDO::FETCH_ASSOC);
             if($rowC['Users_ID']!=NULL){
-              echo "You can only post one rating per product";
+              $stmtPost = $db->prepare("UPDATE Ratings SET Rating =".$_POST['rating']." WHERE Ratings.Users_ID =".($_SESSION['u_ID'])." AND Ratings.Produkter_ID =".$id."");
+              $stmtPost->execute();
+              header("Location: Comments.php?ID=$id");
             }else{
             $stmtPost = $db->prepare("INSERT INTO Ratings (Users_ID,Produkter_ID,Rating) VALUES ('".($_SESSION['u_ID'])."','".$id."','".$_POST['rating']."')");
             $stmtPost->execute();
             header("Location: Comments.php?ID=$id");
             }
           }
-
-          else if (isset($_POST['Comment'])){
+        else if (isset($_POST['Comment'])){
           $stmtE = $db->prepare("SELECT * FROM Kommentarer WHERE Users_ID='".($_SESSION['u_ID'])."' AND Produkter_ID=$id");
           $stmtE->execute();
           $rowE = $stmtE->fetch(PDO::FETCH_ASSOC);
           if($rowE['Users_ID']!=NULL){
-            echo "You can only post one comment per product";
-          }else{
+            $stmtPost = $db->prepare("UPDATE Kommentarer SET Kommentar ='".$_POST['Comment']."' WHERE Kommentarer.Users_ID=".($_SESSION['u_ID'])." AND Kommentarer.Produkter_ID=".$id."");
+            $stmtPost->execute();
+            header("Location: Comments.php?ID=$id");
+        }else{
           $stmtPost = $db->prepare("INSERT INTO Kommentarer (Users_ID,Produkter_ID,Kommentar) VALUES ('".($_SESSION['u_ID'])."','".$id."','".$_POST['Comment']."')");
           $stmtPost->execute();
           header("Location: Comments.php?ID=$id");
@@ -83,13 +128,15 @@
 	}
 	?>
 
-  <form action="" method="post">
+
+
+
+  <form name="Comment" action="" method="post">
     <label for="antal">Write a comment:</label>
     <input type="text" id="Comment" name="Comment" value="<?php if(isset($_POST['Comment'])) echo $_POST['Comment'];?>">
     <input type="submit" id="btnSubmit" name="btnSubmit" value="Comment">
 
   </form>
-
   <form name="Rate" method="post" action=""><br>
   <label> Rate this product <br> </label>
   <input type="radio" id="ratingETT" name="rating" value="1" onclick="this.form.submit();" />
@@ -103,6 +150,5 @@
   <input type="radio" id="ratingFEM" name="rating" value="5" onclick="this.form.submit();"/>
   <label for="ratingFEM">5</label>
   </form>
-
 </body>
 </html>
