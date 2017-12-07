@@ -50,17 +50,19 @@
   					echo "Welcome " . $_SESSION['u_name']. " to the shopping cart <br><br> Your orders: <br>" ;
 
   					while($row = $sql->fetch(PDO::FETCH_ASSOC)){
-  					//	echo "Order number: " . $row['ID'] . "<br>";
+  					  $ID = $row['ID'];
 
-              $sqlO = $db->prepare("SELECT * FROM Kundvagn_has_Produkter WHERE ID ='". $row['ID'] ."'" );
+              $sqlO = $db->prepare("SELECT * FROM Kundvagn_has_Produkter WHERE ID ='". $ID ."'" );
   						$sqlO->execute();
   						$rowO = $sqlO->fetch(PDO::FETCH_ASSOC);
   						$sqlP=$db->prepare("SELECT * FROM Produkter WHERE ID ='". $rowO['Produkter_ID'] ."'" );
   						$sqlP->execute();
   						$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
   						$TotalPris += $rowP['Pris']*$rowO['Antal'];
-  						echo "Product: " .$rowP['Namn']." - Amount: " . $rowO['Antal'] . "- Price: " .$rowP['Pris']*$rowO['Antal']."<br>" ;
-
+              echo "Product: " .$rowP['Namn']." - Amount: " . $rowO['Antal'];
+              echo "<a href='ChangeAmount.php?action=decrease&ID=$ID'><img src='../Images/Minus.png' /></a>";
+              echo "<a href='ChangeAmount.php?action=increase&ID=$ID'><img src='../Images/Plus.png' /></a>";
+              echo " - Price: " .$rowP['Pris']*$rowO['Antal']."<br>" ;
 
   					}
   					echo "<br> Total price: ". $TotalPris. "<br>";
