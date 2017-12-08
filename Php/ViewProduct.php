@@ -3,7 +3,9 @@
 <?php session_start();?>
 <html>
 <head>
+    <title>VapeNation AB</title>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="https://febrezeinwash.com/wp-content/themes/febreze/images/smoke_icon_vector.png">
     <link rel="stylesheet" type="text/css" href="../Css/FooterStyle.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../Css/StandardStyle.css">
@@ -49,26 +51,30 @@
 
     	echo "<h1>" . $row['Namn'] . "</h1>";
       echo "<img class='productImage' src='../Images/ProductImage$ImageID.png' />";
-    	echo "<div class='description'><h3>Description</h3><p>" . $row['Beskrivning'] . "</p></div>";
+    	//echo "<div class='description'><h3>Description</h3><p>" . $row['Beskrivning'] . "</p></div>";
+      include "TabMenu.php";
+
     	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
       echo "<a class='button' href='Comments.php?ID=".$id."' target='blank'>Comments and ratings for this product</a>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
-        $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
-        $stmt->bindValue(':username', ($_SESSION['u_ID']));
-        $stmt->execute();
-        //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
-        $LastID=$db->lastInsertId();
-        $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES (:id,:p_id,:antal)");
-        $stmt1->bindValue(':id', $LastID);
-        $stmt1->bindValue(':p_id', $id);
-        $stmt1->bindValue(':antal', $_POST['antal']);
-        $stmt1->execute();
-    		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
-    		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
-    		$_SESSION['ProductID'] = $id;
+        if(isset($_POST['antal'])){
+          $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
+          $stmt->bindValue(':username', ($_SESSION['u_ID']));
+          $stmt->execute();
+          //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
+          $LastID=$db->lastInsertId();
+          $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES (:id,:p_id,:antal)");
+          $stmt1->bindValue(':id', $LastID);
+          $stmt1->bindValue(':p_id', $id);
+          $stmt1->bindValue(':antal', $_POST['antal']);
+          $stmt1->execute();
+      		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
+      		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
+      		$_SESSION['ProductID'] = $id;
 
-    		echo "<br> Added to your cart <br>";
+      		echo "<br> Added to your cart <br>";
+        }
     	}
 
       ?>
@@ -79,7 +85,6 @@
       	<input type="submit" id="btnSubmit" name="btnSubmit" value="Add to cart" disabled>
 
       </form>
-    </form>
 
     </div>
 
