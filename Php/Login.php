@@ -31,7 +31,7 @@
 		$stmt->execute(array('Username'=>$_POST["username"]));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if(!$row){
-			$_SESSION['message']="This user dosent exist in the database";
+			//$_SESSION['message']="This user dosent exist in the database";
 			//header("Location: Login.php");
 			echo "<script> alert('Wrong username or password, try again!')</script>";
 		}
@@ -67,17 +67,15 @@
 
       <form name="Login" method="post" action="">
   		<div class="alert"> <?=$_SESSION['message']?></div>
-  		    <div class="container">
+  		    <div class="login">
+
+            <h1>Login</h1><span></span>
               <label>Username</label>
               <input type="text" placeholder="Username" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>" required />
   			      <label>Password</label>
               <input type="password" placeholder="Password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>" required />
-
-
-              <div class="clear">
-                  <button type="Login" class="loginbtn">Login</button>
-
-              </div>
+              <button type="Login" class="loginbtn">Login</button>
+              <a href="Register.php"> No account? Register </a>
           </div>
 
 
