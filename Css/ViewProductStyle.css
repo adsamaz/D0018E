@@ -7,7 +7,7 @@
   text-align: justify;
   margin: 2% 0;
 }
-.description p{
+#description p{
   font: normal 15px sans-serif;
 }
 
@@ -25,4 +25,48 @@
 }
 #mStore{
   background-color: #16a426;
+}
+h1{
+  margin-bottom: 3%;
+}
+
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width:325.5px;
+}
+
+/* Style the buttons inside the tab */
+div.tab a {
+    background-color: inherit;
+    float: left;
+    text-decoration: none;
+    padding: 14px 16px;
+    transition: 0.3s;
+    color:#16a426;
+}
+
+/* Change background color of buttons on hover */
+div.tab a:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab a.activeTab {
+    background-color: #ccc;
+}
+
+.ratingsBox{
+  float:left;
+  margin:3% 0 0 6%
+}
+.rating{
+  margin:3% 0;
+  border-bottom: 1px solid gray;
+}
+.commentsBox{
+  float:left;
+  margin:3% 0 0 6%
 }

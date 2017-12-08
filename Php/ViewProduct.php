@@ -56,7 +56,6 @@
 
     	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
     	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
-      echo "<a class='button' href='Comments.php?ID=".$id."' target='blank'>Comments and ratings for this product</a>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_POST['antal'])){
           $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
@@ -95,6 +94,10 @@
       echo 'var lagerAntal = ' . json_encode($lagerAntal) . ';';
       if(!isset($_SESSION['username'])){
         echo "document.getElementById('btnSubmit').disabled = true;";
+        echo "var radios = document.getElementsByClassName('radio');";
+        echo "for (i = 0; i < radios.length; i++) {
+                radios[i].disabled = true;
+              }";
         echo "document.getElementById('antal').disabled = true;";
         echo "document.getElementById('largeOrder').innerHTML = 'Log in to buy';";
       }

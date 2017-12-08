@@ -22,8 +22,8 @@
     $rowU = $stmtU->fetch(PDO::FETCH_ASSOC);
     $User=$rowU['Username'];
 
-	  echo "<b>" . $User . " - </b>";
-	  echo " <b>Comment:</b> " . $Comment . "<br/>";
+	  echo "<div class='comments'>". $User;
+	  echo "Comment:" . $Comment . "</div>";
 	}
 
   if($_SERVER['REQUEST_METHOD']=='POST'){

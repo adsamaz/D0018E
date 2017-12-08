@@ -9,4 +9,10 @@ $(function(){
             $(this).closest("li").addClass("active");
         }
     });
+    $(".tablinks").each(function() {
+            // checks if its the same on the address bar
+        if(url == (this.href)) {
+            $(this).addClass("activeTab");
+        }
+    });
 });

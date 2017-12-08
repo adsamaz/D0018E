@@ -9,15 +9,19 @@
 
   if(!isset($_GET['tab']) || $_GET['tab'] == "description"){
     echo '
-    <div id="Description" class="tabcontent">
+    <div id="description" class="tabcontent">
       <h3>Description</h3>
       <p>' . $row['Beskrivning'] . '</p>
     </div>';
   }
   else if($_GET['tab'] == "ratings"){
+    echo "<div class='ratingsBox'>";
     include "Ratings.php";
+    echo "</div>";
   }
   else if($_GET['tab'] == "comments"){
+    echo "<div class='commentsBox'>";
     include "Comments.php";
+    echo "</div>";
   }
 ?>

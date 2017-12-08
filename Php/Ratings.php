@@ -33,8 +33,8 @@ while(($rowR = $stmtR->fetch(PDO::FETCH_BOTH)))
   $TotalRating+=$Rating;
   $SummaRating++;
 
-  echo "<b>" . $User . " - </b>";
-  echo " <b>Rating:</b> ".$Rating." <br /> <br>";
+  echo "<div class='rating'>" . $User;
+  echo " Rating: ".$Rating." </div>";
 
 }
 
@@ -63,14 +63,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 <form name="Rate" method="post" action=""><br>
 <label> Rate this product <br> </label>
-<input type="radio" id="ratingETT" name="rating" value="1" onclick="this.form.submit();" />
+<input class="radio" type="radio" id="ratingETT" name="rating" value="1" onclick="this.form.submit();" />
 <label for="ratingETT">1</label>
-<input type="radio" id="ratingTVA" name="rating" value="2" onclick="this.form.submit();"/>
+<input class="radio" type="radio" id="ratingTVA" name="rating" value="2" onclick="this.form.submit();"/>
 <label for="ratingTVA">2</label>
-<input type="radio" id="ratingTRE" name="rating" value="3" onclick="this.form.submit();"/>
+<input class="radio" type="radio" id="ratingTRE" name="rating" value="3" onclick="this.form.submit();"/>
 <label for="ratingTRE">3</label>
-<input type="radio" id="ratingFYRA" name="rating" value="4" onclick="this.form.submit();"/>
+<input class="radio" type="radio" id="ratingFYRA" name="rating" value="4" onclick="this.form.submit();"/>
 <label for="ratingFYRA">4</label>
-<input type="radio" id="ratingFEM" name="rating" value="5" onclick="this.form.submit();"/>
+<input class="radio" type="radio" id="ratingFEM" name="rating" value="5" onclick="this.form.submit();"/>
 <label for="ratingFEM">5</label>
 </form>
