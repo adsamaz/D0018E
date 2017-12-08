@@ -104,7 +104,7 @@
                               //ändra status på odern
                               $sql_deliver = $db->prepare("UPDATE Ordrar SET Status = 'Delivered' WHERE Ordrar.ID =". $_POST['use_button']);
                               $sql_deliver->execute();
-                              echo "<script> alert('Order is delivered!');window.location='/~adasaw-5/root/Php/Account.php';</script>";
+                              echo "<script> alert('Order is delivered!');window.location='Account.php';</script>";
 
 
 

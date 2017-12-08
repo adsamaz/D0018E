@@ -38,7 +38,9 @@
 		else{
 
 		if($_POST["username"] == $row['Username']){
-			if($_POST["password"] == $row['Password']){
+
+      if(password_verify($_POST['password'], $row['Password'])){
+      //if($_POST["password"] == $row['Password']){
 				//Starting a new session for the user->login the user
 				//echo "<script> alert('USER FOUND IN DATABASE!')</script>";
         $_SESSION['u_ID']= $row['ID'];

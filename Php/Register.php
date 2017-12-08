@@ -27,10 +27,12 @@
 		echo $e->getMessage();
 	}
 	if($_SERVER['REQUEST_METHOD']=='POST'){
-
+    $password = $_POST["password"];
+    $hash = password_hash($password, PASSWORD_DEFAULT);
 		$stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES (:username,:password,:namn,:adress,'pleb')");
     $stmt->bindValue(':username', $_POST["username"] );
-    $stmt->bindValue(':password', $_POST["password"]);
+    $password = $_POST["password"];
+    $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT));
     $stmt->bindValue(':namn', $_POST["Namn"]);
     $stmt->bindValue(':adress', $_POST["Address"]);
 
