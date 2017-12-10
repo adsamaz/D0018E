@@ -119,7 +119,7 @@
   							}
 
 
-  							echo "<script> alert('All your orders is now cleared!'); window.location='/~adasaw-5/root/Php/Kundvagn.php'; </script>";
+  							echo "<script> alert('All your orders is now cleared!'); window.location='Kundvagn.php'; </script>";
   						}
 
 

@@ -27,6 +27,7 @@
 		echo $e->getMessage();
 	}
 	if($_SERVER['REQUEST_METHOD']=='POST'){
+
     $password = $_POST["password"];
     $hash = password_hash($password, PASSWORD_DEFAULT);
 		$stmt = $db->prepare("INSERT INTO Users (Username, Password, Namn, Adress, Roll) VALUES (:username,:password,:namn,:adress,'pleb')");
@@ -65,21 +66,21 @@
 
     <form name="Registration" method="post" action="">
 		<div class="alert"> <?=$_SESSION['message']?></div>
-        <div class="container">
-            <label>Username</label>
-            <input type="text" placeholder="Enter Username" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>" required>
-			<label>Name</label>
-			<input type="text" placeholder="Enter Name" name="Namn" value="<?php if(isset($_POST['Namn'])) echo $_POST['Namn'];?>" required>
-			<label>Address</label>
-			<input type="text" placeholder="Enter Address" name="Address" value="<?php if(isset($_POST['Address'])) echo $_POST['Address'];?>" required>
-			<label>Password</label>
-            <input type="password" placeholder="Enter Password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>" required>
+      <div class="container">
+
+        <h1>Register</h1>
+
+        <span><label>Username: </label></span>
+        <input type="text" placeholder="Enter Username" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>" required>
+  			<label>Name: </label>
+  			<input type="text" placeholder="Enter Name" name="Namn" value="<?php if(isset($_POST['Namn'])) echo $_POST['Namn'];?>" required>
+  			<label>Address: </label>
+  			<input type="text" placeholder="Enter Address" name="Address" value="<?php if(isset($_POST['Address'])) echo $_POST['Address'];?>" required>
+  			<label>Password: </label>
+        <input type="password" placeholder="Enter Password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>" required>
 
 
-            <div class="clear">
-                <button type="button" class="cancelbtn">Cancel</button>
-                <button type="submit" class="signupbtn">Register</button>
-            </div>
+        <button type="submit" class="signupbtn">Register</button>
         </div>
     </form>
   </div>
