@@ -39,10 +39,11 @@
   			}
   			if(isset($_SESSION['username'])){
   				if($_SESSION['u_Role']=='pleb'){
-  					echo "Welcome " . $_SESSION['u_name']. " you are now logged in <br><br> Account information: <br>" ;
-  					echo "Username: " . $_SESSION['username']. "<br>";
-  					echo "Name: " . $_SESSION['u_name']. "<br>";
-  					echo "Address: " . $_SESSION['u_add']. "<br>";
+            echo "<div class='Rcontainer'>";
+  					echo "<h1>Welcome " . $_SESSION['u_name']. "</h1> <span> Account information: </span>" ;
+  					echo "<span>Username: " . $_SESSION['username']. "</span>";
+  					echo "<span>Name: " . $_SESSION['u_name']. "</span>";
+  					echo "<span>Address: " . $_SESSION['u_add']. "</span>";
   					$TotalPris=0;
 
   					// $sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."' AND Ok=1" );
@@ -50,7 +51,7 @@
             $sql = $db->prepare("SELECT * FROM Ordrar WHERE Users_ID ='". $_SESSION['u_ID']."'" );
   					$sql->execute();
 
-  					echo "<br><br> Your placed orders: <br><br>";
+  					echo "<span><span><span><h2>Your placed orders: </h2></span></span></span>";
 
   					while($row = $sql->fetch(PDO::FETCH_ASSOC)){
 
@@ -62,10 +63,11 @@
   						$sqlP->execute();
   						$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
   						$TotalPris += $rowP['Pris']*$rowO['Antal'];
-  						echo "Product: " .$rowP['Namn']." - Amount: " . $rowO['Antal'] . "- Price: " .$rowP['Pris']*$rowO['Antal']. " - Status: ". $row['Status']. "<br>" ;
-
+              echo "<span><div class='ProBOX'></span>";
+  						echo "<span><h3>Product:</h3> <p>" .$rowP['Namn']."</p></span>  <span><h3>Amount:</h3> <p> " . $rowO['Antal'] . "</p></span> <span><h3>Price: </h3><p> " .$rowP['Pris']*$rowO['Antal']. "</p> </span> <span><h3>Status: </h3><p> ". $row['Status']. "</p></span>" ;
+              echo "</div>";
   					}
-  					echo "<br> Total price: ". $TotalPris. "<br>";
+  					echo "<span> Total price: ". $TotalPris. "</span>";
 
 
 

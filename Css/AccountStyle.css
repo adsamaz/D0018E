@@ -1,0 +1,62 @@
+#wrap{
+  text-align: center;
+}
+
+label {
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+}
+.Rcontainer{
+  width: 40%;
+  padding: 25px;
+  margin: auto;
+  position: sticky;
+}
+
+
+
+.ProBOX{
+ width: 360px;
+ border-style: solid;
+ border-color: #16a426;
+ padding: 25px;
+ margin: auto;
+
+
+}
+
+.ProBOX::after{
+  border-collapse: separate;
+  border-spacing: 10px;
+  content: "\A ";
+  white-space: pre;
+
+}
+span {
+  display: inline;
+}
+span:before {
+  content: "\a ";
+  white-space: pre;
+}
+h1 {
+  right: 38%;
+  top: 230%;
+  color: #000000;
+  display: inline;
+
+
+}
+h2{
+  text-decoration: underline;
+}
+h3{
+
+  display: inline-block;
+}
+p{
+  text-decoration: underline;
+  display:inline-block;
+}
