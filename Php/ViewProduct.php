@@ -54,8 +54,8 @@
     	//echo "<div class='description'><h3>Description</h3><p>" . $row['Beskrivning'] . "</p></div>";
       include "TabMenu.php";
 
-    	echo "<div class='info'><b>Price:</b> $" . $row['Pris'];
-    	echo " <b>In Stock:</b> " . $row['LagerAntal'] . "<br />";
+    	echo "<div class='info'><div class='pris'>$" . $row['Pris'] . "</div>";
+    	echo "<div>In Stock: " . $row['LagerAntal'] . "</div>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_POST['antal'])){
           $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
@@ -72,7 +72,7 @@
       		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
       		$_SESSION['ProductID'] = $id;
 
-      		echo "<br> Added to your cart <br>";
+      		echo "<div class='success'> Added to your cart </div>";
         }
     	}
 

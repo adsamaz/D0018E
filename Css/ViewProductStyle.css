@@ -68,5 +68,40 @@ div.tab a.activeTab {
 }
 .commentsBox{
   float:left;
-  margin:3% 0 0 6%
+  margin:3% 0 0 3%;
+}
+.comments{
+  margin: 3% 0;
+}
+.comment{
+  font: 16px normal sans-serif;
+}
+
+#btnSubmit {
+  background: #16a426;;
+  border:none;
+  color: white;
+  font-size: 18px;
+  font-weight: 200;
+  cursor: pointer;
+  transition: box-shadow .4s ease;
+  transition: color .2s ease;
+  transition: background .2s ease;
+  border-radius:3px;
+  padding:3px;
+  margin:1% 0;
+}
+#btnSubmit:hover {
+  color: #16a426;
+  background: white;
+}
+.pris{
+  font: 19px normal sans-serif;
+}
+.success{
+  color: #16a426;
+  font-size:14px;
+}
+.total{
+  margin:20% 0 0 0;
 }

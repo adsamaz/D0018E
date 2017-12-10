@@ -34,14 +34,14 @@ while(($rowR = $stmtR->fetch(PDO::FETCH_BOTH)))
   $SummaRating++;
 
   echo "<div class='rating'>" . $User;
-  echo " Rating: ".$Rating." </div>";
+  echo " Rating: ".$Rating."/5</div>";
 
 }
 
 if($TotalRating!=0 && $SummaRating!=0){
   $SlutRating=($TotalRating/$SummaRating);
 }
-echo "<b>General rating:</b> ". round($SlutRating, 1) ."<br>";
+echo "<div class='total'>Total rating: ". round($SlutRating, 1) . "/5</div>";
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
   if (isset($_POST['rating'])){

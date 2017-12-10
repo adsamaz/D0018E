@@ -23,7 +23,7 @@
     $User=$rowU['Username'];
 
 	  echo "<div class='comments'>". $User;
-	  echo "Comment:" . $Comment . "</div>";
+	  echo "<span class='comment'>:" . $Comment . "</span></div>";
 	}
 
   if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -44,8 +44,9 @@
 	}
 	?>
 
-  <form name="Comment" action="" method="post">
-    <label for="antal">Write a comment:</label>
-    <input type="text" id="Comment" name="Comment" value="<?php if(isset($_POST['Comment'])) echo $_POST['Comment'];?>">
+  <form name="Comment" action="" method="post" id="commentForm">
+    <label for="antal">Write a comment</label>
+    <!--<input type="textarea" id="Comment" name="Comment" value="<?php //if(isset($_POST['Comment'])) echo $_POST['Comment'];?>">-->
     <input type="submit" id="btnSubmit" name="btnSubmit" value="Comment">
   </form>
+	<textarea form ="commentForm" name="Comment" id="Comment" rows="6" cols="30" wrap="soft"></textarea>

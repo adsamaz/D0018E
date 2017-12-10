@@ -1,13 +1,13 @@
 <?php
   echo '
   <div class="tab">
-    <a href="ViewProduct.php?tab=description&ID='.$id.'" class="tablinks">Description</a>
+    <a href="ViewProduct.php?ID='.$id.'" class="tablinks">Description</a>
     <a href="ViewProduct.php?tab=ratings&ID='.$id.'" class="tablinks">Ratings</a>
     <a href="ViewProduct.php?tab=comments&ID='.$id.'" class="tablinks">Comments</a>
   </div>';
 
 
-  if(!isset($_GET['tab']) || $_GET['tab'] == "description"){
+  if(!isset($_GET['tab'])){
     echo '
     <div id="description" class="tabcontent">
       <h3>Description</h3>
