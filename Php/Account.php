@@ -104,7 +104,7 @@
             if(isset($_POST["use_button"]))
             {
               //ändra status på odern
-              $sql_deliver = $db->prepare("UPDATE Ordrar SET Status = 'Delivered' WHERE OrderID =". $_POST['use_button']);
+              $sql_deliver = $db->prepare("UPDATE Ordrar SET Status = 'Delivered' WHERE Ordrar.OrderID ='". $_POST['use_button']."'");
               $sql_deliver->execute();
               echo "<script> alert('Order is delivered!');window.location='Account.php';</script>";
 
