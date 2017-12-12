@@ -47,6 +47,6 @@
   <form name="Comment" action="" method="post" id="commentForm">
     <label for="antal">Write a comment</label>
     <!--<input type="textarea" id="Comment" name="Comment" value="<?php //if(isset($_POST['Comment'])) echo $_POST['Comment'];?>">-->
-    <input type="submit" id="btnSubmit" name="btnSubmit" value="Comment">
+    <input type="submit" id="commentSubmit" name="commentSubmit" value="Comment">
   </form>
 	<textarea form ="commentForm" name="Comment" id="Comment" rows="6" cols="30" wrap="soft"></textarea>

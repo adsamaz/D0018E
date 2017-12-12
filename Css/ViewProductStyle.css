@@ -77,7 +77,7 @@ div.tab a.activeTab {
   font: 16px normal sans-serif;
 }
 
-#btnSubmit {
+#btnSubmit, #commentSubmit {
   background: #16a426;;
   border:none;
   color: white;
@@ -91,7 +91,7 @@ div.tab a.activeTab {
   padding:3px;
   margin:1% 0;
 }
-#btnSubmit:hover {
+#btnSubmit:hover, #commentSubmit:hover {
   color: #16a426;
   background: white;
 }
