@@ -58,13 +58,13 @@
     	echo "<div>In Stock: " . $row['LagerAntal'] . "</div>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_POST['antal'])){
-          $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
-          $stmt->bindValue(':username', ($_SESSION['u_ID']));
-          $stmt->execute();
+          // $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
+          // $stmt->bindValue(':username', ($_SESSION['u_ID']));
+          // $stmt->execute();
           //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
-          $LastID=$db->lastInsertId();
-          $stmt1 = $db->prepare("INSERT INTO Kundvagn_has_Produkter (ID, Produkter_ID, Antal) VALUES (:id,:p_id,:antal)");
-          $stmt1->bindValue(':id', $LastID);
+          //$LastID=$db->lastInsertId();
+          $stmt1 = $db->prepare("INSERT INTO Kundvagn (Users_ID, Produkter_ID, Antal) VALUES (:username,:p_id,:antal)");
+          $stmt1->bindValue(':username', ($_SESSION['u_ID']));
           $stmt1->bindValue(':p_id', $id);
           $stmt1->bindValue(':antal', $_POST['antal']);
           $stmt1->execute();
