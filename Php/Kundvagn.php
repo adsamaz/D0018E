@@ -43,14 +43,18 @@
 
 
   		if(isset($_SESSION['username'])){
-  					echo "<h3>Your cart</h3>";
+  					echo '<div class="shopping-cart">
+                <div class="title">
+                  Shopping Bag
+                </div>';
             $sql = $db->prepare("SELECT * FROM Kundvagn WHERE Users_ID ='". $_SESSION['u_ID']."'" );
   					$sql->execute();
   					$TotalPris=0;
-  					echo "Welcome " . $_SESSION['u_name']. " to the shopping cart <br><br> Your orders: <br>" ;
 
   					while($row = $sql->fetch(PDO::FETCH_ASSOC)){
   					  $ID = $row['Produkter_ID'];
+
+              echo '<div class="item">';
 
               // $sqlO = $db->prepare("SELECT * FROM Kundvagn WHERE ID ='". $ID ."'" );
   						// $sqlO->execute();
@@ -59,15 +63,23 @@
   						$sqlP->execute();
   						$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
   						$TotalPris += $rowP['Pris']*$row['Antal'];
-              echo "Product: " .$rowP['Namn']." - Amount: " . $row['Antal'];
-              echo "<a href='ChangeAmount.php?action=decrease&ID=$ID'><img src='../Images/Minus.png' /></a>";
-              echo "<a href='ChangeAmount.php?action=increase&ID=$ID'><img src='../Images/Plus.png' /></a>";
-              echo " - Price: " .$rowP['Pris']*$row['Antal']."<br>" ;
+              $ImageID = $rowP['Bild'];
 
+              echo "<div class='image'>
+                      <img src='../Images/ProductImage$ImageID.png' />
+                    </div>";
+              echo '<div class="description">
+                      <span>' . $rowP['Namn'] . '</span>
+                    </div>';
+              echo "<div class='quantity'>
+                      <a href='ChangeAmount.php?action=decrease&ID=$ID'><img src='../Images/Minus.png' /></a>
+                      <span>". $row['Antal'] ."</span>
+                      <a href='ChangeAmount.php?action=increase&ID=$ID'><img src='../Images/Plus.png' /></a>
+                    </div>";
+            echo '<div class="total-price">$'. $rowP['Pris'] .'</div>';
+            echo '</div>';
   					}
-  					echo "<br> Total price: ". $TotalPris. "<br>";
-
-  					echo "<br> To proceed with the order please press the ORDER button or if you wish to remove the order simply press CLEAR. <br>";
+  					echo "<div class='total'> Total price: $". $TotalPris. "</div>";
 
   					echo
   					"<form action='' method='post'>
@@ -132,6 +144,7 @@
   				echo "You need to be signed in to access your shopping cart";
   		}
   	?>
+    </div>
   </div>
   <canvas class="parallax"></canvas>
   <?php include "../Html/Footer.html"; ?>
