@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-label {
+#wrap label {
     text-align: right;
     clear: both;
     float:left;
@@ -34,14 +34,14 @@ label {
   white-space: pre;
 
 }
-span {
+#wrap span {
   display: inline;
 }
-span:before {
+#wrap span:before {
   content: "\a ";
   white-space: pre;
 }
-h1 {
+#wrap h1 {
   right: 38%;
   top: 230%;
   color: #000000;
@@ -49,14 +49,14 @@ h1 {
 
 
 }
-h2{
+#wrap h2{
   text-decoration: underline;
 }
-h3{
+#wrap h3{
 
   display: inline-block;
 }
-p{
+#wrap p{
   text-decoration: underline;
   display:inline-block;
 }

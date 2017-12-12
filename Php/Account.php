@@ -41,9 +41,9 @@
   				if($_SESSION['u_Role']=='pleb'){
             echo "<div class='Rcontainer'>";
   					echo "<h1>Welcome " . $_SESSION['u_name']. "</h1> <span> Account information: </span>" ;
-  					echo "<span>Username: " . $_SESSION['username']. "</span>";
-  					echo "<span>Name: " . $_SESSION['u_name']. "</span>";
-  					echo "<span>Address: " . $_SESSION['u_add']. "</span>";
+  					echo "<span>Username: <u>" . $_SESSION['username']. "</u></span>";
+  					echo "<span>Name: <u>" . $_SESSION['u_name']. "</u></span>";
+  					echo "<span>Address: <u>" . $_SESSION['u_add']. "</u></span>";
   					$TotalPris=0;
 
   					// $sql = $db->prepare("SELECT * FROM Ordrar WHERE Username ='". $_SESSION['username']."' AND Ok=1" );
@@ -51,7 +51,7 @@
             $sql = $db->prepare("SELECT * FROM Ordrar WHERE Users_ID ='". $_SESSION['u_ID']."'" );
   					$sql->execute();
 
-  					echo "<span><span><span><h2>Your placed orders: </h2></span></span></span>";
+  					echo "<span><h2>Your placed orders: </h2></span>";
 
   					while($row = $sql->fetch(PDO::FETCH_ASSOC)){
 
@@ -62,12 +62,12 @@
   						$sqlP=$db->prepare("SELECT * FROM Produkter WHERE ID ='". $rowO['Produkter_ID'] ."'" );
   						$sqlP->execute();
   						$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
-  						$TotalPris += $rowP['Pris']*$rowO['Antal'];
+  						$TotalPris += $rowO['ProduktPris']*$rowO['Antal'];
               echo "<span><div class='ProBOX'></span>";
-  						echo "<span><h3>Product:</h3> <p>" .$rowP['Namn']."</p></span>  <span><h3>Amount:</h3> <p> " . $rowO['Antal'] . "</p></span> <span><h3>Price: </h3><p> " .$rowP['Pris']*$rowO['Antal']. "</p> </span> <span><h3>Status: </h3><p> ". $row['Status']. "</p></span>" ;
+  						echo "<span><h3>Product:</h3> <p>" .$rowP['Namn']."</p></span>  <span><h3>Amount:</h3> <p> " . $rowO['Antal'] . "</p></span> <span><h3>Price: </h3><p> $" .$rowO['ProduktPris']*$rowO['Antal']. "</p> </span> <span><h3>Status: </h3><p> ". $row['Status']. "</p></span>" ;
               echo "</div>";
   					}
-  					echo "<span> Total price: ". $TotalPris. "</span>";
+  					echo "<span> Total price: $". $TotalPris. "</span>";
 
 
 
@@ -86,7 +86,7 @@
             echo "<form method='post'";
   					while($row = $sql->fetch(PDO::FETCH_ASSOC)){
 
-  						$sqlO = $db->prepare("SELECT * FROM Produkter_Ordrar WHERE Ordrar_ID ='". $row['ID'] ."'" );
+  						$sqlO = $db->prepare("SELECT * FROM Produkter_Ordrar WHERE OrderID ='". $row['OrderID'] ."'" );
   						$sqlO->execute();
   						$rowO = $sqlO->fetch(PDO::FETCH_ASSOC);
 
@@ -94,23 +94,23 @@
   						$sqlP->execute();
   						$rowP = $sqlP->fetch(PDO::FETCH_ASSOC);
   						$TotalPris += $rowP['Pris']*$rowO['Antal'];
-  						echo "<br>Order placed by <br> USER ID: ".$row['Users_ID'] ." <br>Order number: " . $row['ID']. "<br>Product: " .$rowP['Namn']." <br> Amount: " . $rowO['Antal'] . "<br>Price: " .$rowP['Pris']*$rowO['Antal']."<br>" ;
-                           // echo "<input type='submit' name ='use_button' value=".$row['ID']." />";
-                            echo "<button type='submit' class='button3' name ='use_button' value=".$row['ID'].">Deliver</button>";
-                            echo "<br>";
-                            //ehheehhe
+  						echo "<br>Order placed by <br> USER ID: ".$row['Users_ID'] ." <br>Order number: " . $row['OrderID']. "<br>Product: " .$rowP['Namn']." <br> Amount: " . $rowO['Antal'] . "<br>Price: $" .$rowO['ProduktPris']*$rowO['Antal']."<br>" ;
+              // echo "<input type='submit' name ='use_button' value=".$row['ID']." />";
+              echo "<button type='submit' class='button3' name ='use_button' value=".$row['OrderID'].">Deliver</button>";
+              echo "<br>";
+              //ehheehhe
   					}
-                        echo "</form>";
-                        if(isset($_POST["use_button"]))
-                            {
-                              //ändra status på odern
-                              $sql_deliver = $db->prepare("UPDATE Ordrar SET Status = 'Delivered' WHERE Ordrar.ID =". $_POST['use_button']);
-                              $sql_deliver->execute();
-                              echo "<script> alert('Order is delivered!');window.location='Account.php';</script>";
+            echo "</form>";
+            if(isset($_POST["use_button"]))
+            {
+              //ändra status på odern
+              $sql_deliver = $db->prepare("UPDATE Ordrar SET Status = 'Delivered' WHERE OrderID =". $_POST['use_button']);
+              $sql_deliver->execute();
+              echo "<script> alert('Order is delivered!');window.location='Account.php';</script>";
 
 
 
-                            }
+            }
 
 
 
@@ -123,7 +123,7 @@
   			}
   		?>
       </table>
-
+      </div>
     </div>
     <canvas class="parallax"></canvas>
     <?php include "../Html/Footer.html"; ?>
