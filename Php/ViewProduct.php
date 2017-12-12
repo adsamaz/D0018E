@@ -63,8 +63,8 @@
         if(isset($_POST['antal'])){
           $sql = $db->prepare("SELECT * FROM Kundvagn WHERE Users_ID ='". $_SESSION['u_ID']."' AND Produkter_ID='".$id."'" );
           $sql->execute();
-          while($row4 = $sql->fetch(PDO::FETCH_ASSOC)){
-            if($row4['Produkter_ID']==$id){
+          $row4 = $sql->fetch(PDO::FETCH_ASSOC);
+            if($row4!=NULL){
                 $stmt1 = $db->prepare("UPDATE Kundvagn SET Antal = Antal+:antal WHERE Kundvagn.Users_ID = :username AND Kundvagn.Produkter_ID = :p_id");
                 $stmt1->bindValue(':username', ($_SESSION['u_ID']));
                 $stmt1->bindValue(':p_id', $id);
@@ -76,8 +76,7 @@
                 echo "<div class='success'> Updated your cart </div>";
               }
 
-              }
-              if(($row4 = $sql->fetch(PDO::FETCH_ASSOC))==NULL){
+              else if ($row4==NULL){
                 $stmt1 = $db->prepare("INSERT INTO Kundvagn (Users_ID, Produkter_ID, Antal) VALUES (:username,:p_id,:antal)");
                 $stmt1->bindValue(':username', ($_SESSION['u_ID']));
                 $stmt1->bindValue(':p_id', $id);
@@ -88,6 +87,8 @@
                 $_SESSION['ProductID'] = $id;
                 echo "<div class='success'> Added to your cart </div>";
               }
+
+
 
         }
     	}
