@@ -49,6 +49,9 @@
     	$lagerAntal = $row['LagerAntal'];
       $ImageID = $row['Bild'];
 
+
+
+
     	echo "<h1>" . $row['Namn'] . "</h1>";
       echo "<img class='productImage' src='../Images/ProductImage$ImageID.png' />";
     	//echo "<div class='description'><h3>Description</h3><p>" . $row['Beskrivning'] . "</p></div>";
@@ -58,21 +61,34 @@
     	echo "<div>In Stock: " . $row['LagerAntal'] . "</div>";
     	if($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_POST['antal'])){
-          // $stmt = $db->prepare("INSERT INTO Kundvagn (ID,Users_ID) VALUES (DEFAULT,:username)");
-          // $stmt->bindValue(':username', ($_SESSION['u_ID']));
-          // $stmt->execute();
-          //(SELECT ID FROM Kundvagn WHERE Users_ID = ".($_SESSION['u_ID']).")
-          //$LastID=$db->lastInsertId();
-          $stmt1 = $db->prepare("INSERT INTO Kundvagn (Users_ID, Produkter_ID, Antal) VALUES (:username,:p_id,:antal)");
-          $stmt1->bindValue(':username', ($_SESSION['u_ID']));
-          $stmt1->bindValue(':p_id', $id);
-          $stmt1->bindValue(':antal', $_POST['antal']);
-          $stmt1->execute();
-      		$rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
-      		$rowO = $stmt->fetch(PDO::FETCH_ASSOC);
-      		$_SESSION['ProductID'] = $id;
+          $sql = $db->prepare("SELECT * FROM Kundvagn WHERE Users_ID ='". $_SESSION['u_ID']."' AND Produkter_ID='".$id."'" );
+          $sql->execute();
+          while($row4 = $sql->fetch(PDO::FETCH_ASSOC)){
+            if($row4['Produkter_ID']==$id){
+                $stmt1 = $db->prepare("UPDATE Kundvagn SET Antal = Antal+:antal WHERE Kundvagn.Users_ID = :username AND Kundvagn.Produkter_ID = :p_id");
+                $stmt1->bindValue(':username', ($_SESSION['u_ID']));
+                $stmt1->bindValue(':p_id', $id);
+                $stmt1->bindValue(':antal', $_POST['antal']);
+                $stmt1->execute();
+                $rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
+                $rowO = $stmt->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['ProductID'] = $id;
+                echo "<div class='success'> Updated your cart </div>";
+              }
 
-      		echo "<div class='success'> Added to your cart </div>";
+              }
+              if(($row4 = $sql->fetch(PDO::FETCH_ASSOC))==NULL){
+                $stmt1 = $db->prepare("INSERT INTO Kundvagn (Users_ID, Produkter_ID, Antal) VALUES (:username,:p_id,:antal)");
+                $stmt1->bindValue(':username', ($_SESSION['u_ID']));
+                $stmt1->bindValue(':p_id', $id);
+                $stmt1->bindValue(':antal', $_POST['antal']);
+                $stmt1->execute();
+                $rowOP = $stmt1->fetch(PDO::FETCH_ASSOC);
+                $rowO = $stmt->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['ProductID'] = $id;
+                echo "<div class='success'> Added to your cart </div>";
+              }
+
         }
     	}
 
