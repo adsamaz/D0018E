@@ -101,6 +101,9 @@
   font-weight: 400;
   font-size: 17px;
 }
+.quantity img:hover{
+  opacity: 0.5;
+}
 
 .description span:first-child {
   margin-bottom: 5px;
